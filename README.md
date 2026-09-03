@@ -24,6 +24,7 @@ Plain HTML + CSS + a little vanilla JS. Everything is inlined:
 | `index.html` | The entire site |
 | `profile_pic.jpg` | Headshot used in the hero (700px, ~90 KB) |
 | `Parinita_Kumari_Resume.pdf` | Linked from the nav and the CTA |
+| `og-image.jpg` | 1200x630 link-preview card (Open Graph) |
 
 ## Local preview
 
