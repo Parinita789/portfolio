@@ -22,7 +22,7 @@ Plain HTML + CSS + a little vanilla JS. Everything is inlined:
 | File | Purpose |
 |---|---|
 | `index.html` | The entire site |
-| `profile_pic.png` | Headshot used in the hero |
+| `profile_pic.jpg` | Headshot used in the hero (700px, ~90 KB) |
 | `Parinita_Kumari_Resume.pdf` | Linked from the nav and the CTA |
 
 ## Local preview

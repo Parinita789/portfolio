@@ -1,2 +1,5 @@
 .DS_Store
 *.log
+
+# full-resolution source of the hero photo, kept locally only
+profile_pic.original.png
