@@ -1,0 +1,3457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta name="color-scheme" content="light" />
+
+  <meta
+    name="description"
+    content="Parinita Kumari — Senior Backend & AI Engineer building distributed systems, scalable platforms and production AI."
+  />
+
+  <title>Parinita Kumari — Backend & AI Engineer</title>
+
+  <style>
+    /* ======================================================
+       RESET + LIGHT THEME
+    ====================================================== */
+
+    :root {
+      --bg: #f7fdff;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-solid: #ffffff;
+      --border: rgba(8, 45, 56, 0.09);
+      --border-strong: rgba(14, 116, 144, 0.32);
+
+      --text: #0f1e24;
+      --muted: #4c6068;
+      --faint: #7a9099;
+
+      --accent: #0e7490;
+      --accent-2: #06b6d4;
+      --accent-3: #0891b2;
+      --green: #10b981;
+      --accent-4: #22d3ee;
+      --accent-5: #2dd4bf;
+
+      --tint-1: #ecfeff;
+      --tint-2: #f0fdfa;
+      --tint-3: #ecfeff;
+      --tint-4: #ecfdf5;
+      --tint-5: #e6fffb;
+
+      --shadow-xs:
+        0 1px 2px rgba(10, 52, 64, 0.05);
+
+      --shadow-sm:
+        0 2px 6px rgba(10, 52, 64, 0.05),
+        0 1px 2px rgba(10, 52, 64, 0.04);
+
+      --shadow-md:
+        0 14px 34px -18px rgba(12, 80, 104, 0.28),
+        0 3px 10px -4px rgba(12, 80, 104, 0.08);
+
+      --shadow-lg:
+        0 28px 60px -26px rgba(12, 80, 104, 0.36),
+        0 8px 20px -10px rgba(12, 80, 104, 0.12);
+
+      --max-width: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      overflow-x: hidden;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* pastel aurora wash */
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+
+      background:
+        radial-gradient(
+          circle at 12% 12%,
+          rgba(34, 211, 238, 0.30),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 88% 14%,
+          rgba(94, 234, 212, 0.26),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 78% 78%,
+          rgba(103, 232, 249, 0.22),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 18% 82%,
+          rgba(125, 211, 252, 0.30),
+          transparent 34%
+        ),
+        var(--bg);
+    }
+
+    /* faint blueprint grid */
+
+    body::after {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      z-index: -2;
+
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(14, 116, 144, 0.055) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(14, 116, 144, 0.055) 1px,
+          transparent 1px
+        );
+
+      background-size: 60px 60px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 78%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 42px));
+      margin: 0 auto;
+    }
+
+    /* ======================================================
+       CURSOR GLOW
+    ====================================================== */
+
+    .cursor-glow {
+      position: fixed;
+
+      width: 460px;
+      height: 460px;
+
+      border-radius: 50%;
+
+      pointer-events: none;
+
+      z-index: -1;
+
+      transform: translate(-50%, -50%);
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(16, 185, 129, 0.13),
+          transparent 65%
+        );
+
+      opacity: 0;
+
+      transition: opacity 0.3s ease;
+    }
+
+    /* ======================================================
+       SCROLL REVEAL (added by JS, so no-JS stays visible)
+    ====================================================== */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+
+      transition:
+        opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ======================================================
+       NAV
+    ====================================================== */
+
+    nav {
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px) saturate(160%);
+
+      border-bottom: 1px solid var(--border);
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    .nav-inner {
+      height: 72px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 11px;
+
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.5px;
+
+      color: var(--accent);
+
+      background:
+        linear-gradient(
+          135deg,
+          #cffafe,
+          #cffafe 55%,
+          #cffafe
+        );
+
+      border: 1px solid rgba(14, 116, 144, 0.18);
+
+      box-shadow:
+        0 6px 16px -8px rgba(14, 116, 144, 0.55);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+
+      gap: 26px;
+
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .resume-button {
+      padding: 9px 16px;
+
+      border: 1px solid rgba(14, 116, 144, 0.22);
+      border-radius: 999px;
+
+      color: var(--accent) !important;
+
+      background: #fff;
+
+      box-shadow: var(--shadow-sm);
+
+      transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .resume-button:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ======================================================
+       HERO
+    ====================================================== */
+
+    .hero {
+      padding: 44px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns: 1fr;
+
+      gap: 16px;
+    }
+
+    .glass {
+      position: relative;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+      border-radius: 28px;
+
+      background: var(--surface);
+
+      backdrop-filter: blur(20px) saturate(150%);
+
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-main {
+      padding: 44px;
+
+      display: grid;
+      grid-template-columns: auto minmax(0, 700px);
+      gap: 46px;
+      align-items: start;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          150deg,
+          rgba(255, 255, 255, 0.94),
+          rgba(255, 255, 255, 0.78)
+        );
+    }
+
+    .hero-main::before {
+      content: "";
+
+      position: absolute;
+
+      width: 420px;
+      height: 420px;
+
+      right: -160px;
+      top: -150px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(34, 211, 238, 0.35),
+          transparent 68%
+        );
+    }
+
+    .hero-main::after {
+      content: "";
+
+      position: absolute;
+
+      width: 320px;
+      height: 320px;
+
+      left: -140px;
+      bottom: -160px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(103, 232, 249, 0.28),
+          transparent 68%
+        );
+    }
+
+    .hero-main > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-top-label {
+      margin-top: 22px;
+
+      display: inline-flex;
+      align-items: center;
+
+      gap: 9px;
+
+      width: fit-content;
+
+      padding: 8px 14px;
+
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      border-radius: 999px;
+
+      background: #f0fdf7;
+
+      font-size: 12px;
+      font-weight: 500;
+      color: #0f7a5a;
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.16);
+
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.16);
+      }
+      50% {
+        box-shadow: 0 0 0 7px rgba(16, 185, 129, 0.06);
+      }
+    }
+
+    .hero-copy h1 {
+      margin-top: -4px;
+
+      font-size:
+        clamp(32px, 3.6vw, 50px);
+
+      line-height: 1.02;
+
+      letter-spacing: -2.4px;
+
+      font-weight: 680;
+    }
+
+    .gradient-text {
+      background:
+        linear-gradient(
+          100deg,
+          #14b8a6,
+          #06b6d4 45%,
+          #0284c7
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+    .wave {
+      display: inline-block;
+
+      font-size: 0.62em;
+
+      letter-spacing: normal;
+
+      transform-origin: 70% 70%;
+
+      animation: wave 3.4s ease-in-out infinite;
+    }
+
+    @keyframes wave {
+      0%, 60%, 100% { transform: rotate(0deg); }
+      65% { transform: rotate(16deg); }
+      75% { transform: rotate(-10deg); }
+      85% { transform: rotate(12deg); }
+    }
+
+    .hero-copy p {
+
+      margin: 16px 0 0;
+
+      color: var(--muted);
+
+      font-size: 15.5px;
+      line-height: 1.7;
+    }
+
+    .hero-copy p strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 11px;
+
+      margin-top: 24px;
+    }
+
+    .button {
+      padding: 12px 20px;
+
+      display: inline-flex;
+      align-items: center;
+
+      gap: 8px;
+
+      border-radius: 999px;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      color: #fff;
+
+      background:
+        linear-gradient(
+          100deg,
+          #0f766e,
+          #0e7490 55%,
+          #155e75
+        );
+
+      box-shadow:
+        0 12px 26px -12px rgba(14, 116, 144, 0.8);
+    }
+
+    .primary:hover {
+      box-shadow:
+        0 18px 34px -12px rgba(14, 116, 144, 0.75);
+    }
+
+    .secondary {
+      border: 1px solid var(--border);
+
+      background: #fff;
+
+      color: var(--text);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .secondary:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-meta {
+      margin-top: 26px;
+
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      font-size: 12px;
+    }
+
+    .hero-meta span {
+      padding: 7px 12px;
+
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.75);
+
+      border: 1px solid var(--border);
+
+      color: var(--muted);
+
+      font-weight: 500;
+    }
+
+    /* ======================================================
+       STACK CHIPS
+    ====================================================== */
+
+    .stack {
+
+      padding: 18px 20px;
+
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      gap: 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      background: rgba(255, 255, 255, 0.7);
+
+      backdrop-filter: blur(12px) saturate(150%);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stack-label {
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      font-weight: 700;
+
+      color: var(--faint);
+    }
+
+    .stack-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 9px;
+    }
+
+    .stack-chip {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 9px 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      background: #fff;
+
+      color: var(--text);
+
+      font-size: 12.5px;
+      font-weight: 600;
+
+      box-shadow: var(--shadow-xs);
+
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .stack-chip:hover {
+      transform: translateY(-2px);
+
+      border-color: var(--border-strong);
+
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ======================================================
+       COMMON SECTION
+    ====================================================== */
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 30px;
+
+      margin-bottom: 42px;
+    }
+
+    .mini-label {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 7px;
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      font-weight: 700;
+
+      color: var(--accent);
+    }
+
+    .section-title {
+      margin-top: 14px;
+
+      max-width: 700px;
+
+      font-size:
+        clamp(36px, 5vw, 58px);
+
+      line-height: 1.04;
+
+      letter-spacing: -3px;
+
+      font-weight: 630;
+    }
+
+    .section-title span {
+      color: #9db4bd;
+    }
+
+    .section-note {
+      max-width: 350px;
+
+      padding: 16px 18px;
+
+      border-radius: 16px;
+
+      border: 1px solid var(--border);
+
+      background: rgba(255, 255, 255, 0.72);
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.7;
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ======================================================
+       EMOJI TILE
+    ====================================================== */
+
+    .emoji-tile {
+      width: 46px;
+      height: 46px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 14px;
+
+      font-size: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #eefcff
+        );
+
+      border: 1px solid var(--border);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ======================================================
+       IMPACT BENTO
+    ====================================================== */
+
+    .impact-bento {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      gap: 14px;
+    }
+
+    .impact-box {
+      min-height: 190px;
+
+      padding: 28px;
+
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      background: rgba(255, 255, 255, 0.82);
+
+      box-shadow: var(--shadow-sm);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .impact-box:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-strong);
+    }
+
+    .impact-box.feature {
+      background:
+        linear-gradient(
+          150deg,
+          #ecfeff,
+          #ffffff 60%,
+          #ecfeff
+        );
+    }
+
+    .impact-emoji {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .impact-number {
+      margin-top: 16px;
+
+      font-size: 51px;
+
+      line-height: 1;
+
+      font-weight: 650;
+
+      letter-spacing: -3px;
+
+      background:
+        linear-gradient(
+          100deg,
+          #0891b2,
+          #0e7490
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+    .impact-number.compact {
+      font-size: 30px;
+
+      letter-spacing: -1.2px;
+    }
+
+    .impact-description {
+      max-width: 190px;
+
+      margin-top: 16px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    /* ======================================================
+       PROJECTS
+    ====================================================== */
+
+    .work-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 14px;
+    }
+
+    .project {
+      position: relative;
+
+      overflow: hidden;
+
+      min-height: 210px;
+
+      padding: 30px;
+
+      display: flex;
+      flex-direction: column;
+
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      background: rgba(255, 255, 255, 0.85);
+
+      box-shadow: var(--shadow-sm);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+
+      box-shadow: var(--shadow-md);
+    }
+
+    .project:nth-child(1) { background: linear-gradient(150deg, var(--tint-1), #fff 65%); }
+    .project:nth-child(2) { background: linear-gradient(150deg, var(--tint-2), #fff 65%); }
+    .project:nth-child(3) { background: linear-gradient(150deg, var(--tint-3), #fff 65%); }
+    .project:nth-child(4) { background: linear-gradient(150deg, var(--tint-4), #fff 65%); }
+    .project:nth-child(5) { background: linear-gradient(150deg, var(--tint-5), #fff 65%); }
+
+    /* a lone last card keeps its size but sits centred instead of stranded left */
+    .project:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+
+      width: calc(50% - 7px);
+
+      margin: 0 auto;
+    }
+
+    .project > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 14px;
+    }
+
+    .project-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      padding: 6px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      background: #fff;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 600;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    .project h3 {
+      margin-top: 22px;
+
+      max-width: 600px;
+
+      font-size: 20px;
+
+      line-height: 1.25;
+
+      letter-spacing: -0.6px;
+    }
+
+    .project .emoji-tile {
+      margin-top: 0;
+    }
+
+    .project-description {
+      margin-top: 14px;
+
+      max-width: 650px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .project-bottom {
+      margin-top: auto;
+      padding-top: 26px;
+    }
+
+    .project-impact {
+      font-size: 18px;
+
+      font-weight: 650;
+      letter-spacing: -0.8px;
+
+      color: var(--text);
+    }
+
+    .project-impact small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--faint);
+
+      font-size: 11px;
+      font-weight: 500;
+
+      letter-spacing: 0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      background: #fff;
+
+      color: var(--muted);
+
+      font-size: 10.5px;
+      font-weight: 500;
+    }
+
+    /* ======================================================
+       ENGINEERING DETAILS
+    ====================================================== */
+
+    details {
+      margin-top: 22px;
+
+      border-top:
+        1px solid var(--border);
+
+      padding-top: 17px;
+    }
+
+    summary {
+      cursor: pointer;
+
+      color: var(--accent);
+
+      font-size: 12px;
+      font-weight: 600;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+
+      float: right;
+
+      font-size: 17px;
+
+      color: var(--faint);
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .engineering-list {
+      display: grid;
+
+      gap: 9px;
+
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .engineering-list div::before {
+      content: "✓";
+
+      margin-right: 10px;
+
+      color: var(--accent);
+
+      font-weight: 700;
+    }
+
+    /* ======================================================
+       GITHUB
+    ====================================================== */
+
+    .github-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 15px;
+    }
+
+    .github-card {
+      position: relative;
+
+      overflow: hidden;
+
+      min-height: 330px;
+
+      padding: 30px;
+
+      display: flex;
+      flex-direction: column;
+
+      border: 1px solid var(--border);
+      border-radius: 24px;
+
+      background: rgba(255, 255, 255, 0.85);
+
+      box-shadow: var(--shadow-sm);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .github-card::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 0 0 auto 0;
+
+      height: 4px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #14b8a6,
+          #06b6d4,
+          #0284c7
+        );
+
+      opacity: 0;
+
+      transition: opacity 0.25s ease;
+    }
+
+    .github-card:hover {
+      transform: translateY(-7px);
+
+      box-shadow: var(--shadow-lg);
+
+      border-color: var(--border-strong);
+    }
+
+    .github-card:hover::before {
+      opacity: 1;
+    }
+
+    .github-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .github-icon {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      font-size: 21px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #eefcff
+        );
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .github-arrow {
+      font-size: 18px;
+      color: var(--faint);
+
+      transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+    }
+
+    .github-card:hover .github-arrow {
+      transform: translate(3px, -3px);
+      color: var(--accent);
+    }
+
+    .github-card h3 {
+      margin-top: 26px;
+
+      font-size: 24px;
+      letter-spacing: -1px;
+    }
+
+    .github-card p {
+      margin-top: 14px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .github-stack {
+      margin-top: auto;
+      padding-top: 35px;
+
+      color: var(--faint);
+
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* ======================================================
+       EXPERIENCE
+    ====================================================== */
+
+    .experience {
+      border-radius: 24px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      background: rgba(255, 255, 255, 0.78);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .experience-row {
+      display: grid;
+
+      grid-template-columns:
+        300px 1fr;
+
+      gap: 36px;
+
+      padding: 30px 26px;
+
+      border-bottom:
+        1px solid var(--border);
+
+      transition:
+        background 0.25s ease,
+        padding 0.25s ease;
+    }
+
+    .experience-row:last-child {
+      border-bottom: none;
+    }
+
+    .experience-row:hover {
+      padding-left: 36px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #eefcff,
+          rgba(255, 255, 255, 0)
+        );
+    }
+
+    .exp-date {
+      margin-top: 10px;
+
+      color: var(--faint);
+
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+
+      letter-spacing: 0.2px;
+    }
+
+    .exp-meta {
+      padding-top: 2px;
+    }
+
+    .exp-company {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-weight: 650;
+    }
+
+    .exp-logo {
+      width: 26px;
+      height: 26px;
+
+      flex: none;
+
+      border-radius: 7px;
+
+      object-fit: contain;
+
+      background: #fff;
+
+      border: 1px solid var(--border);
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    .exp-logo-fallback {
+      width: 26px;
+      height: 26px;
+
+      flex: none;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 7px;
+
+      border: 1px solid var(--border);
+
+      background:
+        linear-gradient(
+          145deg,
+          #cffafe,
+          #cffafe
+        );
+
+      color: var(--accent);
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    .exp-role {
+      margin-top: 5px;
+
+      color: var(--faint);
+      font-size: 12px;
+    }
+
+    .exp-points {
+      list-style: none;
+
+      display: grid;
+
+      gap: 12px;
+
+      max-width: 780px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.72;
+    }
+
+    .exp-points li {
+      position: relative;
+
+      padding-left: 28px;
+    }
+
+    .exp-points li::before {
+      content: attr(data-icon);
+
+      position: absolute;
+
+      left: 0;
+      top: 0;
+
+      font-size: 12px;
+      line-height: 1.95;
+    }
+
+    .exp-points strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    /* ======================================================
+       CTA
+    ====================================================== */
+
+    .cta {
+      margin: 45px auto 100px;
+
+      min-height: 390px;
+
+      padding: 70px 40px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      border: 1px solid var(--border);
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          150deg,
+          #ecfeff,
+          #ffffff 45%,
+          #ecfeff
+        );
+
+      box-shadow: var(--shadow-md);
+    }
+
+    .cta::before {
+      content: "";
+
+      position: absolute;
+
+      width: 560px;
+      height: 560px;
+
+      top: -360px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(34, 211, 238, 0.4),
+          transparent 70%
+        );
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta h2 {
+      margin-top: 14px;
+
+      max-width: 820px;
+
+      font-size:
+        clamp(38px, 5vw, 62px);
+
+      line-height: 1.05;
+
+      letter-spacing: -3px;
+    }
+
+    .cta p {
+      margin-top: 18px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    .cta-buttons {
+      margin-top: 30px;
+
+      display: flex;
+      justify-content: center;
+
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ======================================================
+       FOOTER
+    ====================================================== */
+
+    footer {
+      border-top:
+        1px solid var(--border);
+
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-inner {
+      min-height: 58px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+
+      color: var(--faint);
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+
+      gap: 22px;
+    }
+
+    .footer-links a {
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ======================================================
+       SCROLL PROGRESS
+    ====================================================== */
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      height: 3px;
+      width: 0;
+
+      z-index: 200;
+
+      background:
+        linear-gradient(
+          90deg,
+          #14b8a6,
+          #06b6d4,
+          #0284c7
+        );
+
+      transition: width 0.08s linear;
+    }
+
+    /* ======================================================
+       HERO IDENTITY (avatar + status)
+    ====================================================== */
+
+    .hero-lead {
+      align-self: center;
+    }
+
+    .avatar {
+      position: relative;
+
+      width: 230px;
+      height: 230px;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border-radius: 50%;
+
+      font-size: 74px;
+
+      background:
+        linear-gradient(
+          150deg,
+          #cffafe,
+          #cffafe 50%,
+          #cffafe
+        );
+
+      border: 1px solid var(--border);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .avatar img {
+      position: absolute;
+
+      z-index: 1;
+
+      width: 136.8%;
+      height: auto;
+      max-width: none;
+
+      left: -17.7%;
+      top: -11.6%;
+    }
+
+    .avatar-fallback {
+      line-height: 1;
+    }
+
+    .fun-facts {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 22px;
+    }
+
+    .fact {
+      padding: 7px 12px;
+
+      border-radius: 999px;
+
+      border: 1px solid var(--border);
+
+      background: rgba(255, 255, 255, 0.8);
+
+      color: var(--muted);
+
+      font-size: 11.5px;
+      font-weight: 500;
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* ======================================================
+       PROJECT FLOW DIAGRAM
+    ====================================================== */
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      gap: 7px;
+
+      margin-top: 20px;
+
+      padding: 12px 13px;
+
+      border-radius: 16px;
+
+      border: 1px dashed rgba(14, 116, 144, 0.24);
+
+      background: rgba(14, 116, 144, 0.045);
+    }
+
+    .flow-node {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 6px;
+
+      padding: 6px 11px;
+
+      border-radius: 10px;
+
+      border: 1px solid var(--border);
+
+      background: #fff;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      box-shadow: var(--shadow-xs);
+    }
+
+    .flow-step {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 8px;
+    }
+
+    .flow-arrow {
+      color: var(--accent);
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* ======================================================
+       TESTIMONIALS (template — see commented block in HTML)
+    ====================================================== */
+
+    .quote-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 15px;
+    }
+
+    .quote-card {
+      padding: 30px;
+
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      background: rgba(255, 255, 255, 0.85);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quote-card blockquote {
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .quote-author {
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      margin-top: 22px;
+
+      padding-top: 20px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .quote-avatar {
+      width: 38px;
+      height: 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      font-size: 18px;
+
+      background: var(--tint-1);
+
+      border: 1px solid var(--border);
+    }
+
+    .quote-name {
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .quote-role {
+      margin-top: 2px;
+
+      color: var(--faint);
+
+      font-size: 11px;
+    }
+
+    /* ======================================================
+       CONTACT ROW
+    ====================================================== */
+
+    .contact-row {
+      margin-top: 30px;
+
+      padding-top: 26px;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      gap: 10px 26px;
+
+      font-size: 12.5px;
+      font-weight: 500;
+
+      color: var(--muted);
+    }
+
+    .contact-row a {
+      transition: color 0.2s ease;
+    }
+
+    .contact-row a:hover {
+      color: var(--accent);
+    }
+
+    /* ======================================================
+       ICONS — official brand marks (simple-icons) + line icons
+    ====================================================== */
+
+    .icon-sprite {
+      display: none;
+    }
+
+    .i {
+      width: 1.15em;
+      height: 1.15em;
+
+      flex: none;
+
+      vertical-align: -0.2em;
+
+      fill: currentColor;
+
+      color: var(--accent);
+    }
+
+    .emoji-tile .i,
+    .github-icon .i {
+      width: 23px;
+      height: 23px;
+
+      vertical-align: 0;
+    }
+
+    .impact-emoji .i {
+      width: 26px;
+      height: 26px;
+
+      vertical-align: 0;
+    }
+
+    .project-impact .i {
+      width: 20px;
+      height: 20px;
+
+      vertical-align: -0.14em;
+    }
+
+    .i-nestjs { color: #E0234E; }
+    .i-pulumi { color: #8A3391; }
+    .i-js { color: #F7DF1E; }
+    .i-python { color: #3776AB; }
+    .i-react { color: #61DAFB; }
+    .i-nextjs { color: #000000; }
+    .i-fastapi { color: #009688; }
+    .i-ghactions { color: #2088FF; }
+    .i-circleci { color: #343434; }
+    .i-lambda { color: #FF9900; }
+    .i-sqs { color: #FF4F8B; }
+    .i-jira { color: #0052CC; }
+    .i-node { color: #5FA04E; }
+    .i-ts { color: #3178C6; }
+    .i-aws { color: #232F3E; }
+    .i-mongodb { color: #47A248; }
+    .i-redis { color: #FF4438; }
+    .i-rabbitmq { color: #FF6600; }
+    .i-docker { color: #2496ED; }
+    .i-postgres { color: #4169E1; }
+    .i-claude { color: #D97757; }
+    .i-ollama { color: #000000; }
+    .i-github { color: #181717; }
+    .i-linkedin { color: #0A66C2; }
+
+    /* ======================================================
+       RESPONSIVE
+    ====================================================== */
+
+    @media (max-width: 1000px) {
+      .impact-bento {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .github-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-row {
+        grid-template-columns:
+          240px 1fr;
+
+        gap: 26px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width:
+          min(var(--max-width), calc(100% - 26px));
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-main {
+        padding: 28px 24px;
+
+        grid-template-columns: 1fr;
+        gap: 26px;
+
+        justify-content: stretch;
+      }
+
+      .hero-lead {
+        align-self: start;
+      }
+
+      .avatar {
+        width: 160px;
+        height: 160px;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .impact-bento {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .impact-box {
+        min-height: 160px;
+        padding: 22px;
+      }
+
+      .impact-number {
+        font-size: 40px;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        min-height: auto;
+        padding: 25px;
+      }
+
+      .project h3 {
+        margin-top: 20px;
+      }
+
+      .experience-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+
+        padding: 24px 20px;
+      }
+
+      .experience-row:hover {
+        padding-left: 26px;
+      }
+
+      .nav-links a:not(.resume-button) {
+        display: none;
+      }
+
+      .cta {
+        padding: 55px 25px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding: 16px 0;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .impact-bento {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+      }
+
+      .status-dot,
+      .wave {
+        animation: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-node" viewBox="0 0 24 24"><path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/></symbol>
+    <symbol id="i-ts" viewBox="0 0 24 24"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></symbol>
+    <symbol id="i-aws" viewBox="0 0 24 24"><path d="M6.763 10.036c0 .296.032.535.088.71.064.176.144.368.256.576.04.063.056.127.056.183 0 .08-.048.16-.152.24l-.503.335a.383.383 0 0 1-.208.072c-.08 0-.16-.04-.239-.112a2.47 2.47 0 0 1-.287-.375 6.18 6.18 0 0 1-.248-.471c-.622.734-1.405 1.101-2.347 1.101-.67 0-1.205-.191-1.596-.574-.391-.384-.59-.894-.59-1.533 0-.678.239-1.23.726-1.644.487-.415 1.133-.623 1.955-.623.272 0 .551.024.846.064.296.04.6.104.918.176v-.583c0-.607-.127-1.03-.375-1.277-.255-.248-.686-.367-1.3-.367-.28 0-.568.031-.863.103-.295.072-.583.16-.862.272a2.287 2.287 0 0 1-.28.104.488.488 0 0 1-.127.023c-.112 0-.168-.08-.168-.247v-.391c0-.128.016-.224.056-.28a.597.597 0 0 1 .224-.167c.279-.144.614-.264 1.005-.36a4.84 4.84 0 0 1 1.246-.151c.95 0 1.644.216 2.091.647.439.43.662 1.085.662 1.963v2.586zm-3.24 1.214c.263 0 .534-.048.822-.144.287-.096.543-.271.758-.51.128-.152.224-.32.272-.512.047-.191.08-.423.08-.694v-.335a6.66 6.66 0 0 0-.735-.136 6.02 6.02 0 0 0-.75-.048c-.535 0-.926.104-1.19.32-.263.215-.39.518-.39.917 0 .375.095.655.295.846.191.2.47.296.838.296zm6.41.862c-.144 0-.24-.024-.304-.08-.064-.048-.12-.16-.168-.311L7.586 5.55a1.398 1.398 0 0 1-.072-.32c0-.128.064-.2.191-.2h.783c.151 0 .255.025.31.08.065.048.113.16.16.312l1.342 5.284 1.245-5.284c.04-.16.088-.264.151-.312a.549.549 0 0 1 .32-.08h.638c.152 0 .256.025.32.08.063.048.12.16.151.312l1.261 5.348 1.381-5.348c.048-.16.104-.264.16-.312a.52.52 0 0 1 .311-.08h.743c.127 0 .2.065.2.2 0 .04-.009.08-.017.128a1.137 1.137 0 0 1-.056.2l-1.923 6.17c-.048.16-.104.263-.168.311a.51.51 0 0 1-.303.08h-.687c-.151 0-.255-.024-.32-.08-.063-.056-.119-.16-.15-.32l-1.238-5.148-1.23 5.14c-.04.16-.087.264-.15.32-.065.056-.177.08-.32.08zm10.256.215c-.415 0-.83-.048-1.229-.143-.399-.096-.71-.2-.918-.32-.128-.071-.215-.151-.247-.223a.563.563 0 0 1-.048-.224v-.407c0-.167.064-.247.183-.247.048 0 .096.008.144.024.048.016.12.048.2.08.271.12.566.215.878.279.319.064.63.096.95.096.502 0 .894-.088 1.165-.264a.86.86 0 0 0 .415-.758.777.777 0 0 0-.215-.559c-.144-.151-.416-.287-.807-.415l-1.157-.36c-.583-.183-1.014-.454-1.277-.813a1.902 1.902 0 0 1-.4-1.158c0-.335.073-.63.216-.886.144-.255.335-.479.575-.654.24-.184.51-.32.83-.415.32-.096.655-.136 1.006-.136.175 0 .359.008.535.032.183.024.35.056.518.088.16.04.312.08.455.127.144.048.256.096.336.144a.69.69 0 0 1 .24.2.43.43 0 0 1 .071.263v.375c0 .168-.064.256-.184.256a.83.83 0 0 1-.303-.096 3.652 3.652 0 0 0-1.532-.311c-.455 0-.815.071-1.062.223-.248.152-.375.383-.375.71 0 .224.08.416.24.567.159.152.454.304.877.44l1.134.358c.574.184.99.44 1.237.767.247.327.367.702.367 1.117 0 .343-.072.655-.207.926-.144.272-.336.511-.583.703-.248.2-.543.343-.886.447-.36.111-.734.167-1.142.167zM21.698 16.207c-2.626 1.94-6.442 2.969-9.722 2.969-4.598 0-8.74-1.7-11.87-4.526-.247-.223-.024-.527.272-.351 3.384 1.963 7.559 3.153 11.877 3.153 2.914 0 6.114-.607 9.06-1.852.439-.2.814.287.383.607zM22.792 14.961c-.336-.43-2.22-.207-3.074-.103-.255.032-.295-.192-.063-.36 1.5-1.053 3.967-.75 4.254-.399.287.36-.08 2.826-1.485 4.007-.215.184-.423.088-.327-.151.32-.79 1.03-2.57.695-2.994z"/></symbol>
+    <symbol id="i-mongodb" viewBox="0 0 24 24"><path d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z"/></symbol>
+    <symbol id="i-redis" viewBox="0 0 24 24"><path d="M22.71 13.145c-1.66 2.092-3.452 4.483-7.038 4.483-3.203 0-4.397-2.825-4.48-5.12.701 1.484 2.073 2.685 4.214 2.63 4.117-.133 6.94-3.852 6.94-7.239 0-4.05-3.022-6.972-8.268-6.972-3.752 0-8.4 1.428-11.455 3.685C2.59 6.937 3.885 9.958 4.35 9.626c2.648-1.904 4.748-3.13 6.784-3.744C8.12 9.244.886 17.05 0 18.425c.1 1.261 1.66 4.648 2.424 4.648.232 0 .431-.133.664-.365a100.49 100.49 0 0 0 5.54-6.765c.222 3.104 1.748 6.898 6.014 6.898 3.819 0 7.604-2.756 9.33-8.965.2-.764-.73-1.361-1.261-.73zm-4.349-5.013c0 1.959-1.926 2.922-3.685 2.922-.941 0-1.664-.247-2.235-.568 1.051-1.592 2.092-3.225 3.21-4.973 1.972.334 2.71 1.43 2.71 2.619z"/></symbol>
+    <symbol id="i-rabbitmq" viewBox="0 0 24 24"><path d="M23.035 9.601h-7.677a.956.956 0 01-.962-.962V.962a.956.956 0 00-.962-.956H10.56a.956.956 0 00-.962.956V8.64a.956.956 0 01-.962.962H5.762a.956.956 0 01-.961-.962V.962A.956.956 0 003.839 0H.959a.956.956 0 00-.956.962v22.076A.956.956 0 00.965 24h22.07a.956.956 0 00.962-.962V10.58a.956.956 0 00-.962-.98zm-3.86 8.152a1.437 1.437 0 01-1.437 1.443h-1.924a1.437 1.437 0 01-1.436-1.443v-1.917a1.437 1.437 0 011.436-1.443h1.924a1.437 1.437 0 011.437 1.443z"/></symbol>
+    <symbol id="i-docker" viewBox="0 0 24 24"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></symbol>
+    <symbol id="i-postgres" viewBox="0 0 24 24"><path d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"/></symbol>
+    <symbol id="i-claude" viewBox="0 0 24 24"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></symbol>
+    <symbol id="i-ollama" viewBox="0 0 24 24"><path d="M16.361 10.26a.894.894 0 0 0-.558.47l-.072.148.001.207c0 .193.004.217.059.353.076.193.152.312.291.448.24.238.51.3.872.205a.86.86 0 0 0 .517-.436.752.752 0 0 0 .08-.498c-.064-.453-.33-.782-.724-.897a1.06 1.06 0 0 0-.466 0zm-9.203.005c-.305.096-.533.32-.65.639a1.187 1.187 0 0 0-.06.52c.057.309.31.59.598.667.362.095.632.033.872-.205.14-.136.215-.255.291-.448.055-.136.059-.16.059-.353l.001-.207-.072-.148a.894.894 0 0 0-.565-.472 1.02 1.02 0 0 0-.474.007Zm4.184 2c-.131.071-.223.25-.195.383.031.143.157.288.353.407.105.063.112.072.117.136.004.038-.01.146-.029.243-.02.094-.036.194-.036.222.002.074.07.195.143.253.064.052.076.054.255.059.164.005.198.001.264-.03.169-.082.212-.234.15-.525-.052-.243-.042-.28.087-.355.137-.08.281-.219.324-.314a.365.365 0 0 0-.175-.48.394.394 0 0 0-.181-.033c-.126 0-.207.03-.355.124l-.085.053-.053-.032c-.219-.13-.259-.145-.391-.143a.396.396 0 0 0-.193.032zm.39-2.195c-.373.036-.475.05-.654.086-.291.06-.68.195-.951.328-.94.46-1.589 1.226-1.787 2.114-.04.176-.045.234-.045.53 0 .294.005.357.043.524.264 1.16 1.332 2.017 2.714 2.173.3.033 1.596.033 1.896 0 1.11-.125 2.064-.727 2.493-1.571.114-.226.169-.372.22-.602.039-.167.044-.23.044-.523 0-.297-.005-.355-.045-.531-.288-1.29-1.539-2.304-3.072-2.497a6.873 6.873 0 0 0-.855-.031zm.645.937a3.283 3.283 0 0 1 1.44.514c.223.148.537.458.671.662.166.251.26.508.303.82.02.143.01.251-.043.482-.08.345-.332.705-.672.957a3.115 3.115 0 0 1-.689.348c-.382.122-.632.144-1.525.138-.582-.006-.686-.01-.853-.042-.57-.107-1.022-.334-1.35-.68-.264-.28-.385-.535-.45-.946-.03-.192.025-.509.137-.776.136-.326.488-.73.836-.963.403-.269.934-.46 1.422-.512.187-.02.586-.02.773-.002zm-5.503-11a1.653 1.653 0 0 0-.683.298C5.617.74 5.173 1.666 4.985 2.819c-.07.436-.119 1.04-.119 1.503 0 .544.064 1.24.155 1.721.02.107.031.202.023.208a8.12 8.12 0 0 1-.187.152 5.324 5.324 0 0 0-.949 1.02 5.49 5.49 0 0 0-.94 2.339 6.625 6.625 0 0 0-.023 1.357c.091.78.325 1.438.727 2.04l.13.195-.037.064c-.269.452-.498 1.105-.605 1.732-.084.496-.095.629-.095 1.294 0 .67.009.803.088 1.266.095.555.288 1.143.503 1.534.071.128.243.393.264.407.007.003-.014.067-.046.141a7.405 7.405 0 0 0-.548 1.873c-.062.417-.071.552-.071.991 0 .56.031.832.148 1.279L3.42 24h1.478l-.05-.091c-.297-.552-.325-1.575-.068-2.597.117-.472.25-.819.498-1.296l.148-.29v-.177c0-.165-.003-.184-.057-.293a.915.915 0 0 0-.194-.25 1.74 1.74 0 0 1-.385-.543c-.424-.92-.506-2.286-.208-3.451.124-.486.329-.918.544-1.154a.787.787 0 0 0 .223-.531c0-.195-.07-.355-.224-.522a3.136 3.136 0 0 1-.817-1.729c-.14-.96.114-2.005.69-2.834.563-.814 1.353-1.336 2.237-1.475.199-.033.57-.028.776.01.226.04.367.028.512-.041.179-.085.268-.19.374-.431.093-.215.165-.333.36-.576.234-.29.46-.489.822-.729.413-.27.884-.467 1.352-.561.17-.035.25-.04.569-.04.319 0 .398.005.569.04a4.07 4.07 0 0 1 1.914.997c.117.109.398.457.488.602.034.057.095.177.132.267.105.241.195.346.374.43.14.068.286.082.503.045.343-.058.607-.053.943.016 1.144.23 2.14 1.173 2.581 2.437.385 1.108.276 2.267-.296 3.153-.097.15-.193.27-.333.419-.301.322-.301.722-.001 1.053.493.539.801 1.866.708 3.036-.062.772-.26 1.463-.533 1.854a2.096 2.096 0 0 1-.224.258.916.916 0 0 0-.194.25c-.054.109-.057.128-.057.293v.178l.148.29c.248.476.38.823.498 1.295.253 1.008.231 2.01-.059 2.581a.845.845 0 0 0-.044.098c0 .006.329.009.732.009h.73l.02-.074.036-.134c.019-.076.057-.3.088-.516.029-.217.029-1.016 0-1.258-.11-.875-.295-1.57-.597-2.226-.032-.074-.053-.138-.046-.141.008-.005.057-.074.108-.152.376-.569.607-1.284.724-2.228.031-.26.031-1.378 0-1.628-.083-.645-.182-1.082-.348-1.525a6.083 6.083 0 0 0-.329-.7l-.038-.064.131-.194c.402-.604.636-1.262.727-2.04a6.625 6.625 0 0 0-.024-1.358 5.512 5.512 0 0 0-.939-2.339 5.325 5.325 0 0 0-.95-1.02 8.097 8.097 0 0 1-.186-.152.692.692 0 0 1 .023-.208c.208-1.087.201-2.443-.017-3.503-.19-.924-.535-1.658-.98-2.082-.354-.338-.716-.482-1.15-.455-.996.059-1.8 1.205-2.116 3.01a6.805 6.805 0 0 0-.097.726c0 .036-.007.066-.015.066a.96.96 0 0 1-.149-.078A4.857 4.857 0 0 0 12 3.03c-.832 0-1.687.243-2.456.698a.958.958 0 0 1-.148.078c-.008 0-.015-.03-.015-.066a6.71 6.71 0 0 0-.097-.725C8.997 1.392 8.337.319 7.46.048a2.096 2.096 0 0 0-.585-.041Zm.293 1.402c.248.197.523.759.682 1.388.03.113.06.244.069.292.007.047.026.152.041.233.067.365.098.76.102 1.24l.002.475-.12.175-.118.178h-.278c-.324 0-.646.041-.954.124l-.238.06c-.033.007-.038-.003-.057-.144a8.438 8.438 0 0 1 .016-2.323c.124-.788.413-1.501.696-1.711.067-.05.079-.049.157.013zm9.825-.012c.17.126.358.46.498.888.28.854.36 2.028.212 3.145-.019.14-.024.151-.057.144l-.238-.06a3.693 3.693 0 0 0-.954-.124h-.278l-.119-.178-.119-.175.002-.474c.004-.669.066-1.19.214-1.772.157-.623.434-1.185.68-1.382.078-.062.09-.063.159-.012z"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+    <symbol id="i-graph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="12" cy="18.5" r="2.4"/><path d="M7.4 6h9.2M6.4 8.1l4.4 8.4m6.8-8.4-4.4 8.4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.3 5.6a5 5 0 0 1-6.5 6.5l-7.7 7.7a2.1 2.1 0 0 1-3-3l7.7-7.7a5 5 0 0 1 6.5-6.5l-3 3 .9 3.4 3.4.9z"/></symbol>
+    <symbol id="i-queue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="4.2" rx="1.6"/><rect x="3.5" y="9.9" width="17" height="4.2" rx="1.6"/><rect x="3.5" y="15.8" width="17" height="4.2" rx="1.6"/></symbol>
+    <symbol id="i-event" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2"/><path d="M7.9 7.9a5.8 5.8 0 0 0 0 8.2m8.2 0a5.8 5.8 0 0 0 0-8.2M5 5a9.9 9.9 0 0 0 0 14m14 0a9.9 9.9 0 0 0 0-14"/></symbol>
+    <symbol id="i-cache" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 4.6-9 4.6-9-4.6z"/><path d="m3 12.4 9 4.6 9-4.6M3 16.9l9 4.6 9-4.6"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="3.4" width="7.2" height="7.2" rx="1.9"/><rect x="13.4" y="3.4" width="7.2" height="7.2" rx="1.9"/><rect x="3.4" y="13.4" width="7.2" height="7.2" rx="1.9"/><rect x="13.4" y="13.4" width="7.2" height="7.2" rx="1.9"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.4" y="5" width="19.2" height="14" rx="2.6"/><path d="M2.4 9.9h19.2M6 15h4.2"/></symbol>
+    <symbol id="i-monolith" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2.2"/><path d="M6 9h12M6 15h12"/></symbol>
+    <symbol id="i-request" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 12h11.6M10.4 8.2 14.2 12l-3.8 3.8"/><path d="M17 4h2.4A2 2 0 0 1 21.4 6v12a2 2 0 0 1-2 2H17"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 2.4 4.6 13.7h6.3l-1 7.9 8.5-11.3h-6.2z"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 12.4h4L8.7 7l3.1 10 2.6-6.2 1.6 3h5.4"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.6" cy="5" r="2.4"/><circle cx="5.6" cy="19" r="2.4"/><circle cx="18.4" cy="12" r="2.4"/><path d="M5.6 7.4v9.2M8 5.6c4.2.7 6.4 2.5 7.6 5.4M8 18.4c4.2-.7 6.4-2.5 7.6-5.4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="m8.1 12.3 2.7 2.7 5.1-5.4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2.8H7.4a2.2 2.2 0 0 0-2.2 2.2v14a2.2 2.2 0 0 0 2.2 2.2h9.2a2.2 2.2 0 0 0 2.2-2.2V7.6z"/><path d="M14 2.8v4.8h4.8M8.6 13.2h6.8M8.6 16.6h4.4"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.1 14.6a1.5 1.5 0 0 0 .3 1.7l.1.1a1.9 1.9 0 1 1-2.6 2.6l-.1-.1a1.5 1.5 0 0 0-1.7-.3 1.5 1.5 0 0 0-.9 1.4v.2a1.9 1.9 0 1 1-3.8 0v-.1a1.5 1.5 0 0 0-1-1.4 1.5 1.5 0 0 0-1.7.3l-.1.1a1.9 1.9 0 1 1-2.6-2.6l.1-.1a1.5 1.5 0 0 0 .3-1.7 1.5 1.5 0 0 0-1.4-.9h-.2a1.9 1.9 0 1 1 0-3.8h.1a1.5 1.5 0 0 0 1.4-1 1.5 1.5 0 0 0-.3-1.7l-.1-.1a1.9 1.9 0 1 1 2.6-2.6l.1.1a1.5 1.5 0 0 0 1.7.3h.1a1.5 1.5 0 0 0 .9-1.4v-.2a1.9 1.9 0 1 1 3.8 0v.1a1.5 1.5 0 0 0 .9 1.4 1.5 1.5 0 0 0 1.7-.3l.1-.1a1.9 1.9 0 1 1 2.6 2.6l-.1.1a1.5 1.5 0 0 0-.3 1.7v.1a1.5 1.5 0 0 0 1.4.9h.2a1.9 1.9 0 1 1 0 3.8h-.1a1.5 1.5 0 0 0-1.4.9z"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2.8 13 8.4l5.6 2-5.6 2-2 5.6-2-5.6-5.6-2 5.6-2z"/><path d="m18.4 14.6.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.8" width="18" height="6.4" rx="2.1"/><rect x="3" y="13.8" width="18" height="6.4" rx="2.1"/><path d="M7 7h.01M7 17h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.9 5.9v5.6c0 4.4 3 8.4 7.1 9.7 4.1-1.3 7.1-5.3 7.1-9.7V5.9z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 17.4 9 11.2l4 4 8.2-8.2"/><path d="M15.4 7h5.8v5.8"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.6" y="4.8" width="18.8" height="14.4" rx="2.4"/><path d="m3.4 6.6 8.6 6.2 8.6-6.2"/></symbol>
+    <symbol id="i-nestjs" viewBox="0 0 24 24"><path d="M14.131.047c-.173 0-.334.037-.483.087.316.21.49.49.576.806.007.043.019.074.025.117a.681.681 0 0 1 .013.112c.024.545-.143.614-.26.936-.18.415-.13.861.086 1.22a.74.74 0 0 0 .074.137c-.235-1.568 1.073-1.803 1.314-2.293.019-.428-.334-.713-.613-.911a1.37 1.37 0 0 0-.732-.21zM16.102.4c-.024.143-.006.106-.012.18-.006.05-.006.112-.012.161-.013.05-.025.1-.044.149-.012.05-.03.1-.05.149l-.067.142c-.02.025-.031.05-.05.075l-.037.055a2.152 2.152 0 0 1-.093.124c-.037.038-.068.081-.112.112v.006c-.037.031-.074.068-.118.1-.13.099-.278.173-.415.266-.043.03-.087.056-.124.093a.906.906 0 0 0-.118.099c-.043.037-.074.074-.111.118-.031.037-.068.08-.093.124a1.582 1.582 0 0 0-.087.13c-.025.05-.043.093-.068.142-.019.05-.037.093-.05.143a2.007 2.007 0 0 0-.043.155c-.006.025-.006.056-.012.08-.007.025-.007.05-.013.075 0 .05-.006.105-.006.155 0 .037 0 .074.006.111 0 .05.006.1.019.155.006.05.018.1.03.15.02.049.032.098.05.148.013.03.031.062.044.087l-1.426-.552c-.241-.068-.477-.13-.719-.186l-.39-.093c-.372-.074-.75-.13-1.128-.167-.013 0-.019-.006-.031-.006A11.082 11.082 0 0 0 8.9 2.855c-.378.025-.756.074-1.134.136a12.45 12.45 0 0 0-.837.174l-.279.074c-.092.037-.18.08-.266.118l-.205.093c-.012.006-.024.006-.03.012-.063.031-.118.056-.174.087a2.738 2.738 0 0 0-.236.118c-.043.018-.086.043-.124.062a.559.559 0 0 1-.055.03c-.056.032-.112.063-.162.094a1.56 1.56 0 0 0-.148.093c-.044.03-.087.055-.124.086-.006.007-.013.007-.019.013-.037.025-.08.056-.118.087l-.012.012-.093.074c-.012.007-.025.019-.037.025-.031.025-.062.056-.093.08-.006.013-.019.02-.025.025-.037.038-.074.069-.111.106-.007 0-.007.006-.013.012a1.742 1.742 0 0 0-.111.106c-.007.006-.007.012-.013.012a1.454 1.454 0 0 0-.093.1c-.012.012-.03.024-.043.036a1.374 1.374 0 0 1-.106.112c-.006.012-.018.019-.024.03-.05.05-.093.1-.143.15l-.018.018c-.1.106-.205.211-.317.304-.111.1-.229.192-.347.273a3.777 3.777 0 0 1-.762.421c-.13.056-.267.106-.403.149-.26.056-.527.161-.756.18-.05 0-.105.012-.155.018l-.155.037-.149.056c-.05.019-.099.044-.148.068-.044.031-.093.056-.137.087a1.011 1.011 0 0 0-.124.106c-.043.03-.087.074-.124.111-.037.043-.074.08-.105.124-.031.05-.068.093-.093.143a1.092 1.092 0 0 0-.087.142c-.025.056-.05.106-.068.161-.019.05-.037.106-.056.161-.012.05-.025.1-.03.15 0 .005-.007.012-.007.018-.012.056-.012.13-.019.167C.006 7.95 0 7.986 0 8.03a.657.657 0 0 0 .074.31v.006c.019.037.044.075.069.112.024.037.05.074.08.111.031.031.068.069.106.1a.906.906 0 0 0 .117.099c.149.13.186.173.378.272.031.019.062.031.1.05.006 0 .012.006.018.006 0 .013 0 .019.006.031a1.272 1.272 0 0 0 .08.298c.02.037.032.074.05.111.007.013.013.025.02.031.024.05.049.093.073.137l.093.13c.031.037.069.08.106.118.037.037.074.068.118.105 0 0 .006.006.012.006.037.031.074.062.112.087a.986.986 0 0 0 .136.08c.043.025.093.05.142.069a.73.73 0 0 0 .124.043c.007.006.013.006.025.012.025.007.056.013.08.019-.018.335-.024.65.026.762.055.124.328-.254.6-.688-.036.428-.061.93 0 1.079.069.155.44-.329.763-.862 4.395-1.016 8.405 2.02 8.826 6.31-.08-.67-.905-1.041-1.283-.948-.186.458-.502 1.047-1.01 1.413.043-.41.025-.83-.062-1.24a4.009 4.009 0 0 1-.769 1.562c-.588.043-1.177-.242-1.487-.67-.025-.018-.031-.055-.05-.08-.018-.043-.037-.087-.05-.13a.515.515 0 0 1-.037-.13c-.006-.044-.006-.087-.006-.137v-.093a.992.992 0 0 1 .031-.13c.013-.043.025-.086.044-.13.024-.043.043-.087.074-.13.105-.298.105-.54-.087-.682a.706.706 0 0 0-.118-.062c-.024-.006-.055-.018-.08-.025l-.05-.018a.847.847 0 0 0-.13-.031.472.472 0 0 0-.13-.019 1.01 1.01 0 0 0-.136-.012c-.031 0-.062.006-.093.006a.484.484 0 0 0-.137.019c-.043.006-.086.012-.13.024a1.068 1.068 0 0 0-.13.044c-.043.018-.08.037-.124.056-.037.018-.074.043-.118.062-1.444.942-.582 3.148.403 3.787-.372.068-.75.148-.855.229l-.013.012c.267.161.546.298.837.416.397.13.818.247 1.004.297v.006a5.996 5.996 0 0 0 1.562.112c2.746-.192 4.996-2.281 5.405-5.033l.037.161c.019.112.043.23.056.347v.006c.012.056.018.112.025.162v.024c.006.056.012.112.012.162.006.068.012.136.012.204v.1c0 .03.007.067.007.098 0 .038-.007.075-.007.112v.087c0 .043-.006.08-.006.124 0 .025 0 .05-.006.08 0 .044-.006.087-.006.137-.006.018-.006.037-.006.055l-.02.143c0 .019 0 .037-.005.056-.007.062-.019.118-.025.18v.012l-.037.174v.018l-.037.167c0 .007-.007.02-.007.025a1.663 1.663 0 0 1-.043.168v.018c-.019.062-.037.118-.05.174-.006.006-.006.012-.006.012l-.056.186c-.024.062-.043.118-.068.18-.025.062-.043.124-.068.18-.025.062-.05.117-.074.18h-.007c-.024.055-.05.117-.08.173a.302.302 0 0 1-.019.043c-.006.006-.006.013-.012.019a5.867 5.867 0 0 1-1.742 2.082c-.05.031-.099.069-.149.106-.012.012-.03.018-.043.03a2.603 2.603 0 0 1-.136.094l.018.037h.007l.26-.037h.006c.161-.025.322-.056.483-.087.044-.006.093-.019.137-.031l.087-.019c.043-.006.086-.018.13-.024.037-.013.074-.02.111-.031.62-.15 1.221-.354 1.798-.595a9.926 9.926 0 0 1-3.85 3.142c.714-.05 1.426-.167 2.114-.366a9.903 9.903 0 0 0 5.857-4.68 9.893 9.893 0 0 1-1.667 3.986 9.758 9.758 0 0 0 1.655-1.376 9.824 9.824 0 0 0 2.61-5.268c.21.98.272 1.99.18 2.987 4.474-6.241.371-12.712-1.346-14.416-.006-.013-.012-.019-.012-.031-.006.006-.006.006-.006.012 0-.006 0-.006-.007-.012 0 .074-.006.148-.012.223a8.34 8.34 0 0 1-.062.415c-.03.136-.068.273-.105.41-.044.13-.093.266-.15.396a5.322 5.322 0 0 1-.185.378 4.735 4.735 0 0 1-.477.688c-.093.111-.192.21-.292.31a3.994 3.994 0 0 1-.18.155l-.142.124a3.459 3.459 0 0 1-.347.241 4.295 4.295 0 0 1-.366.211c-.13.062-.26.118-.39.174a4.364 4.364 0 0 1-.818.223c-.143.025-.285.037-.422.05a4.914 4.914 0 0 1-.297.012 4.66 4.66 0 0 1-.422-.025 3.137 3.137 0 0 1-.421-.062 3.136 3.136 0 0 1-.415-.105h-.007c.137-.013.273-.025.41-.05a4.493 4.493 0 0 0 .818-.223c.136-.05.266-.112.39-.174.13-.062.248-.13.372-.204.118-.08.235-.161.347-.248.112-.087.217-.18.316-.279.105-.093.198-.198.291-.304.093-.111.18-.223.26-.334.013-.019.026-.044.038-.062.062-.1.124-.199.18-.298a4.272 4.272 0 0 0 .334-.775c.044-.13.075-.266.106-.403.025-.142.05-.278.062-.415.012-.142.025-.285.025-.421 0-.1-.007-.199-.013-.298a6.726 6.726 0 0 0-.05-.415 4.493 4.493 0 0 0-.092-.415c-.044-.13-.087-.267-.137-.397-.05-.13-.111-.26-.173-.384-.069-.124-.137-.248-.211-.366a6.843 6.843 0 0 0-.248-.34c-.093-.106-.186-.212-.285-.317a3.878 3.878 0 0 0-.161-.155c-.28-.217-.57-.421-.862-.607a1.154 1.154 0 0 0-.124-.062 2.415 2.415 0 0 0-.589-.26Z"/></symbol>
+    <symbol id="i-pulumi" viewBox="0 0 24 24"><path d="M11.997 0C10.226 0 8.79.83 8.79 1.856c0 1.025 1.436 1.856 3.207 1.856 1.772 0 3.208-.831 3.208-1.856C15.205.83 13.77 0 11.997 0zM5.95 3.488c-1.772 0-3.208.83-3.208 1.856C2.742 6.369 4.178 7.2 5.95 7.2c1.771 0 3.207-.831 3.207-1.856 0-1.025-1.436-1.856-3.207-1.856zm12.103 0c-1.772 0-3.208.83-3.208 1.856 0 1.025 1.436 1.856 3.208 1.856 1.771 0 3.207-.831 3.207-1.856 0-1.025-1.436-1.856-3.207-1.856zm-6.056 3.495c-1.771 0-3.207.831-3.207 1.856 0 1.025 1.436 1.856 3.207 1.856 1.772 0 3.208-.83 3.208-1.856 0-1.025-1.436-1.856-3.208-1.856zm-10.127.67a1.157 1.157 0 0 0-.55.151c-.888.513-.89 2.172-.004 3.706.886 1.534 2.324 2.362 3.211 1.85.888-.513.89-2.171.003-3.706-.72-1.246-1.803-2.027-2.66-2zm20.257.004c-.857-.026-1.941.754-2.661 2-.886 1.535-.884 3.194.003 3.707.888.512 2.325-.316 3.211-1.85.886-1.534.885-3.193-.003-3.706a1.157 1.157 0 0 0-.55-.15zm-6.048 3.492c-.857-.026-1.94.754-2.66 2-.886 1.535-.885 3.194.003 3.706.887.513 2.325-.316 3.21-1.85.887-1.534.885-3.193-.003-3.706a1.157 1.157 0 0 0-.55-.15zm-8.16.001a1.157 1.157 0 0 0-.55.151c-.888.513-.89 2.172-.004 3.706.886 1.535 2.324 2.363 3.211 1.85.888-.512.89-2.171.003-3.705-.72-1.247-1.803-2.028-2.66-2.002zm-6.047 3.494a1.157 1.157 0 0 0-.55.151c-.888.513-.89 2.172-.004 3.706.886 1.534 2.324 2.362 3.212 1.85.887-.513.888-2.172.003-3.706-.72-1.246-1.804-2.027-2.661-2.001zm20.258.002c-.857-.026-1.941.755-2.66 2.001-.887 1.535-.885 3.193.003 3.706.887.512 2.325-.316 3.21-1.85.886-1.534.885-3.193-.003-3.706a1.157 1.157 0 0 0-.55-.15zm-6.047 3.492c-.858-.026-1.942.754-2.661 2-.886 1.535-.885 3.194.003 3.706.888.513 2.325-.315 3.21-1.85.887-1.533.885-3.193-.002-3.705a1.157 1.157 0 0 0-.55-.151zm-8.163.003a1.157 1.157 0 0 0-.55.151c-.887.513-.889 2.172-.003 3.706.886 1.534 2.323 2.363 3.211 1.85.888-.512.89-2.171.004-3.706-.72-1.246-1.804-2.027-2.662-2z"/></symbol>
+    <symbol id="i-js" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></symbol>
+    <symbol id="i-python" viewBox="0 0 24 24"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></symbol>
+    <symbol id="i-react" viewBox="0 0 24 24"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></symbol>
+    <symbol id="i-nextjs" viewBox="0 0 24 24"><path d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z"/></symbol>
+    <symbol id="i-fastapi" viewBox="0 0 24 24"><path d="M12 .0387C5.3729.0384.0003 5.3931 0 11.9988c-.001 6.6066 5.372 11.9628 12 11.9625 6.628.0003 12.001-5.3559 12-11.9625-.0003-6.6057-5.3729-11.9604-12-11.96m-.829 5.4153h7.55l-7.5805 5.3284h5.1828L5.279 18.5436q2.9466-6.5444 5.892-13.0896"/></symbol>
+    <symbol id="i-ghactions" viewBox="0 0 24 24"><path d="M10.984 13.836a.5.5 0 0 1-.353-.146l-.745-.743a.5.5 0 1 1 .706-.708l.392.391 1.181-1.18a.5.5 0 0 1 .708.707l-1.535 1.533a.504.504 0 0 1-.354.146zm9.353-.147l1.534-1.532a.5.5 0 0 0-.707-.707l-1.181 1.18-.392-.391a.5.5 0 1 0-.706.708l.746.743a.497.497 0 0 0 .706-.001zM4.527 7.452l2.557-1.585A1 1 0 0 0 7.09 4.17L4.533 2.56A1 1 0 0 0 3 3.406v3.196a1.001 1.001 0 0 0 1.527.85zm2.03-2.436L4 6.602V3.406l2.557 1.61zM24 12.5c0 1.93-1.57 3.5-3.5 3.5a3.503 3.503 0 0 1-3.46-3h-2.08a3.503 3.503 0 0 1-3.46 3 3.502 3.502 0 0 1-3.46-3h-.558c-.972 0-1.85-.399-2.482-1.042V17c0 1.654 1.346 3 3 3h.04c.244-1.693 1.7-3 3.46-3 1.93 0 3.5 1.57 3.5 3.5S13.43 24 11.5 24a3.502 3.502 0 0 1-3.46-3H8c-2.206 0-4-1.794-4-4V9.899A5.008 5.008 0 0 1 0 5c0-2.757 2.243-5 5-5s5 2.243 5 5a5.005 5.005 0 0 1-4.952 4.998A2.482 2.482 0 0 0 7.482 12h.558c.244-1.693 1.7-3 3.46-3a3.502 3.502 0 0 1 3.46 3h2.08a3.503 3.503 0 0 1 3.46-3c1.93 0 3.5 1.57 3.5 3.5zm-15 8c0 1.378 1.122 2.5 2.5 2.5s2.5-1.122 2.5-2.5-1.122-2.5-2.5-2.5S9 19.122 9 20.5zM5 9c2.206 0 4-1.794 4-4S7.206 1 5 1 1 2.794 1 5s1.794 4 4 4zm9 3.5c0-1.378-1.122-2.5-2.5-2.5S9 11.122 9 12.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5zm9 0c0-1.378-1.122-2.5-2.5-2.5S18 11.122 18 12.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5zm-13 8a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0zm12 0c0 1.93-1.57 3.5-3.5 3.5a3.503 3.503 0 0 1-3.46-3.002c-.007.001-.013.005-.021.005l-.506.017h-.017a.5.5 0 0 1-.016-.999l.506-.017c.018-.002.035.006.052.007A3.503 3.503 0 0 1 20.5 17c1.93 0 3.5 1.57 3.5 3.5zm-1 0c0-1.378-1.122-2.5-2.5-2.5S18 19.122 18 20.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5z"/></symbol>
+    <symbol id="i-circleci" viewBox="0 0 24 24"><path d="M8.963 12c0-1.584 1.284-2.855 2.855-2.855 1.572 0 2.856 1.284 2.856 2.855 0 1.572-1.284 2.856-2.856 2.856-1.57 0-2.855-1.284-2.855-2.856zm2.855-12C6.215 0 1.522 3.84.19 9.025c-.01.036-.01.07-.01.12 0 .313.252.576.575.576H5.59c.23 0 .433-.13.517-.333.997-2.16 3.18-3.672 5.712-3.672 3.466 0 6.286 2.82 6.286 6.287 0 3.47-2.82 6.29-6.29 6.29-2.53 0-4.714-1.5-5.71-3.673-.097-.19-.29-.336-.517-.336H.755c-.312 0-.575.253-.575.576 0 .037.014.072.014.12C1.514 20.16 6.214 24 11.818 24c6.624 0 12-5.375 12-12 0-6.623-5.376-12-12-12z"/></symbol>
+    <symbol id="i-browser" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.6" y="4" width="18.8" height="16" rx="2.4"/><path d="M2.6 8.7h18.8M5.8 6.3h.01M8.4 6.3h.01"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.8v6.4M15 2.8v6.4"/><path d="M6.4 9.2h11.2v3.1a5.6 5.6 0 0 1-11.2 0z"/><path d="M12 17.9v3.3"/></symbol>
+    <symbol id="i-lambda" viewBox="0 0 24 24"><path d="M4.9855 0c-.2941.0031-.5335.2466-.534.5482L4.446 5.456c0 .1451.06.2835.159.3891a.5322.5322 0 0 0 .3806.1562h3.4282l8.197 17.6805a.5365.5365 0 0 0 .4885.3181h5.811c.2969 0 .5426-.2448.5426-.5482V18.544c0-.3035-.2392-.5482-.5425-.5482h-2.0138L12.7394.3153C12.647.124 12.4564 0 12.2452 0h-7.254Zm.5397 1.0907h6.3678l8.16 17.6804a.5365.5365 0 0 0 .4885.3181h1.8178v3.8173H17.437L9.2402 5.226a.536.536 0 0 0-.4885-.318H5.5223Zm2.0137 8.2366c-.2098.0011-.3937.1193-.4857.3096L.6002 23.2133a.5506.5506 0 0 0 .0313.5282.5334.5334 0 0 0 .4544.25h6.169a.5468.5468 0 0 0 .497-.3096l3.38-7.166a.5405.5405 0 0 0-.0029-.4686L8.036 9.637a.5468.5468 0 0 0-.4942-.3096Zm.0057 1.8036 2.488 5.1522-3.1214 6.6206H1.9465Z"/></symbol>
+    <symbol id="i-sqs" viewBox="0 0 24 24"><path d="m7.164 13.58 1.287-1.27a.425.425 0 0 0 .002-.603L7.166 10.42l-.608.601.552.552H5.147v.852h1.97l-.557.55Zm9.82.04 1.715-1.28a.427.427 0 0 0 0-.682l-1.716-1.277-.515.682.686.51H15.44v.853h1.715l-.686.511ZM9.945 12c0 .905-.156 1.758-.449 2.5a7.07 7.07 0 0 1 2.511-.445c.87 0 1.74.148 2.51.445a6.855 6.855 0 0 1-.448-2.5c0-.905.157-1.757.449-2.5-1.543.593-3.479.593-5.022 0 .293.743.45 1.595.45 2.5Zm-2.1 4.136a.424.424 0 0 1 0-.602c.778-.774 1.243-2.095 1.243-3.534 0-1.439-.465-2.76-1.244-3.534a.424.424 0 0 1 0-.602.43.43 0 0 1 .607 0c1.662 1.65 5.45 1.65 7.113 0a.43.43 0 0 1 .732.301.42.42 0 0 1-.126.301c-.778.774-1.243 2.095-1.243 3.534 0 1.439.465 2.76 1.243 3.534a.424.424 0 0 1 0 .602.43.43 0 0 1-.606 0c-1.662-1.65-5.451-1.65-7.113 0a.43.43 0 0 1-.607 0Zm15.299-4.134c0-.397-.155-.77-.438-1.051a1.495 1.495 0 0 0-1.058-.435c-.383 0-.766.145-1.058.435a1.481 1.481 0 0 0 0 2.102c.583.58 1.532.58 2.116 0 .283-.28.438-.654.438-1.05Zm.168 1.654a2.354 2.354 0 0 1-1.664.684 2.354 2.354 0 0 1-1.664-.684 2.33 2.33 0 0 1 0-3.308 2.366 2.366 0 0 1 3.328 0 2.33 2.33 0 0 1 0 3.308ZM3.85 12.012a1.491 1.491 0 0 0-1.496-1.487 1.493 1.493 0 0 0-1.496 1.487c0 .397.155.77.437 1.051.566.561 1.551.561 2.116 0 .283-.281.439-.654.439-1.051Zm.168 1.654a2.354 2.354 0 0 1-1.665.684 2.355 2.355 0 0 1-1.664-.684 2.332 2.332 0 0 1 0-3.308 2.367 2.367 0 0 1 3.329 0 2.33 2.33 0 0 1 0 3.308Zm14.367 4.7a9.034 9.034 0 0 1-6.41 2.639 9.033 9.033 0 0 1-6.41-2.638c-1.175-1.166-1.82-2.56-2.156-3.524l-.81.28c.364 1.047 1.07 2.566 2.36 3.846a9.888 9.888 0 0 0 7.016 2.888 9.888 9.888 0 0 0 7.016-2.888 10.234 10.234 0 0 0 2.43-3.848l-.812-.276a9.37 9.37 0 0 1-2.224 3.522ZM3.407 9.158l-.81-.28c.52-1.484 1.358-2.851 2.363-3.849a9.887 9.887 0 0 1 7.014-2.885 9.885 9.885 0 0 1 7.014 2.885 10.497 10.497 0 0 1 2.43 3.85l-.809.279a9.628 9.628 0 0 0-2.228-3.526 9.03 9.03 0 0 0-6.407-2.636 9.03 9.03 0 0 0-6.408 2.636c-.914.909-1.681 2.161-2.159 3.526Z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.4 19.4a4.6 4.6 0 0 0 .3-9.2 6.6 6.6 0 0 0-12.7 2 4.1 4.1 0 0 0 .8 7.2z"/></symbol>
+    <symbol id="i-jira" viewBox="0 0 24 24"><path d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></symbol>
+  </svg>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ====================================================
+       NAVIGATION
+  ===================================================== -->
+
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="#" class="brand">
+        <span class="brand-mark">PK</span>
+        Parinita Kumari
+      </a>
+
+      <div class="nav-links">
+
+        <a href="#about">
+          🙋 About
+        </a>
+
+        <a href="#experience">
+          📈 Experience
+        </a>
+
+        <a href="#work">
+          🧩 Work
+        </a>
+
+        <a href="#projects">
+          🛠️ Projects
+        </a>
+
+        <a href="#contact">
+          ✉️ Contact
+        </a>
+
+        <a
+          href="./Parinita_Kumari_Resume.pdf"
+          target="_blank"
+          class="resume-button"
+        >
+          📄 Resume ↗
+        </a>
+
+      </div>
+
+    </div>
+  </nav>
+
+
+  <!-- ====================================================
+       HERO
+  ===================================================== -->
+
+  <header class="hero" id="about">
+    <div class="container">
+
+      <div class="hero-grid">
+
+        <!-- MAIN HERO -->
+
+        <div class="hero-main glass">
+
+          <div class="hero-lead">
+
+            <div class="avatar">
+              <!-- 📸 Photo: profile_pic.png, next to index.html.
+                   If it is ever missing the emoji below shows instead. -->
+              <img
+                src="./profile_pic.png"
+                alt="Parinita Kumari"
+                onload="this.nextElementSibling?.remove()"
+                onerror="this.remove()"
+              />
+              <span class="avatar-fallback">🧑‍💻</span>
+            </div>
+
+          </div>
+
+
+          <div class="hero-copy">
+
+            <h1>
+              I build systems
+              <span class="gradient-text">
+                that scale.
+              </span>
+              <span class="wave">🚀</span>
+            </h1>
+
+            <div class="hero-top-label">
+              <span class="status-dot"></span>
+              Open to Mid/Senior Backend, Full-Stack &amp; AI roles
+            </div>
+
+            <p>
+              Hey there 👋,
+              I'm <strong>Parinita Kumari</strong>, a Senior Software
+              Engineer with <strong>7+ years</strong> building distributed backend
+              systems, cloud platforms and AI workflows.
+            </p>
+            <p>
+              I genuinely enjoy the unglamorous parts of the job like retries,
+              idempotency, queue backpressure and the failure modes nobody
+              writes happy path docs for. Lately I have been building production
+              AI: RAG pipelines with real evaluation harnesses, not demos.
+            </p>
+
+            <div class="fun-facts">
+              <span class="fact">⚡ Distributed systems nerd</span>
+              <span class="fact">🧪 Evals over vibes</span>
+              <span class="fact">📊 Metrics before opinions</span>
+            </div>
+
+            <div class="hero-actions">
+
+              <a
+                href="#work"
+                class="button primary"
+              >
+                👀 Explore my work ↓
+              </a>
+
+              <a
+                href="https://github.com/Parinita789"
+                target="_blank"
+                class="button secondary"
+              >
+                <svg class="i i-github" aria-hidden="true"><use href="#i-github"/></svg> GitHub ↗
+              </a>
+
+              <a
+                href="https://linkedin.com/in/parinita789"
+                target="_blank"
+                class="button secondary"
+              >
+                <svg class="i i-linkedin" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn ↗
+              </a>
+
+            </div>
+
+            <div class="hero-meta">
+
+              <span>
+                <svg class="i i-server" aria-hidden="true"><use href="#i-server"/></svg> Backend Engineering
+              </span>
+
+              <span>
+                <svg class="i i-graph" aria-hidden="true"><use href="#i-graph"/></svg> Distributed Systems
+              </span>
+
+              <span>
+                <svg class="i i-cpu" aria-hidden="true"><use href="#i-cpu"/></svg> Production AI
+              </span>
+
+              <span>
+                <svg class="i i-aws" aria-hidden="true"><use href="#i-aws"/></svg> AWS
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+  </header>
+
+
+
+
+  <!-- ====================================================
+       IMPACT
+  ===================================================== -->
+
+  <section>
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="mini-label">
+            📊 Selected impact
+          </div>
+
+          <h2 class="section-title">
+            Results first.
+            <span>Technology second.</span>
+          </h2>
+
+        </div>
+
+        <p class="section-note">
+          💡 The systems I've worked on improved reliability,
+          performance and operational efficiency — not just code quality.
+        </p>
+
+      </div>
+
+
+      <div class="impact-bento">
+
+        <div class="impact-box feature">
+
+          <div class="impact-emoji"><svg class="i i-search" aria-hidden="true"><use href="#i-search"/></svg></div>
+
+          <div class="impact-number compact">
+            Hours → min
+          </div>
+
+          <div class="impact-description">
+            Ticket resolution, via an LLM-powered RAG triage pipeline
+          </div>
+
+        </div>
+
+
+        <div class="impact-box">
+
+          <div class="impact-emoji"><svg class="i i-gear" aria-hidden="true"><use href="#i-gear"/></svg></div>
+
+          <div class="impact-number">
+            60%
+          </div>
+
+          <div class="impact-description">
+            Less manual coordination through workflow automation
+          </div>
+
+        </div>
+
+
+        <div class="impact-box">
+
+          <div class="impact-emoji"><svg class="i i-bolt" aria-hidden="true"><use href="#i-bolt"/></svg></div>
+
+          <div class="impact-number">
+            55%
+          </div>
+
+          <div class="impact-description">
+            Reduction in API latency through database optimization and caching
+          </div>
+
+        </div>
+
+
+        <div class="impact-box">
+
+          <div class="impact-emoji"><svg class="i i-shield" aria-hidden="true"><use href="#i-shield"/></svg></div>
+
+          <div class="impact-number">
+            20%
+          </div>
+
+          <div class="impact-description">
+            Fewer failed-request alerts with capacity-aware routing
+          </div>
+
+        </div>
+
+
+        <div class="impact-box">
+
+          <div class="impact-emoji"><svg class="i i-card" aria-hidden="true"><use href="#i-card"/></svg></div>
+
+          <div class="impact-number">
+            40+
+          </div>
+
+          <div class="impact-description">
+            Countries served by the payments microservices I helped split out
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================
+       STACK
+  ===================================================== -->
+
+  <div class="container">
+
+    <div class="stack">
+
+      <span class="stack-label">Stack</span>
+
+      <div class="stack-list">
+
+        <span class="stack-chip"><svg class="i i-ts" aria-hidden="true"><use href="#i-ts"/></svg> TypeScript</span>
+        <span class="stack-chip"><svg class="i i-js" aria-hidden="true"><use href="#i-js"/></svg> JavaScript</span>
+        <span class="stack-chip"><svg class="i i-python" aria-hidden="true"><use href="#i-python"/></svg> Python</span>
+        <span class="stack-chip"><svg class="i i-node" aria-hidden="true"><use href="#i-node"/></svg> Node.js</span>
+        <span class="stack-chip"><svg class="i i-nestjs" aria-hidden="true"><use href="#i-nestjs"/></svg> NestJS</span>
+        <span class="stack-chip"><svg class="i i-fastapi" aria-hidden="true"><use href="#i-fastapi"/></svg> FastAPI</span>
+        <span class="stack-chip"><svg class="i i-react" aria-hidden="true"><use href="#i-react"/></svg> React</span>
+        <span class="stack-chip"><svg class="i i-nextjs" aria-hidden="true"><use href="#i-nextjs"/></svg> Next.js</span>
+        <span class="stack-chip"><svg class="i i-mongodb" aria-hidden="true"><use href="#i-mongodb"/></svg> MongoDB</span>
+        <span class="stack-chip"><svg class="i i-postgres" aria-hidden="true"><use href="#i-postgres"/></svg> PostgreSQL</span>
+        <span class="stack-chip"><svg class="i i-redis" aria-hidden="true"><use href="#i-redis"/></svg> Redis</span>
+        <span class="stack-chip"><svg class="i i-rabbitmq" aria-hidden="true"><use href="#i-rabbitmq"/></svg> RabbitMQ</span>
+        <span class="stack-chip"><svg class="i i-postgres" aria-hidden="true"><use href="#i-postgres"/></svg> pgvector</span>
+        <span class="stack-chip"><svg class="i i-claude" aria-hidden="true"><use href="#i-claude"/></svg> Claude Code</span>
+        <span class="stack-chip"><svg class="i i-plug" aria-hidden="true"><use href="#i-plug"/></svg> MCP</span>
+        <span class="stack-chip"><svg class="i i-search" aria-hidden="true"><use href="#i-search"/></svg> RAG</span>
+        <span class="stack-chip"><svg class="i i-docker" aria-hidden="true"><use href="#i-docker"/></svg> Docker</span>
+        <span class="stack-chip"><svg class="i i-aws" aria-hidden="true"><use href="#i-aws"/></svg> AWS</span>
+        <span class="stack-chip"><svg class="i i-pulumi" aria-hidden="true"><use href="#i-pulumi"/></svg> Pulumi</span>
+        <span class="stack-chip"><svg class="i i-ghactions" aria-hidden="true"><use href="#i-ghactions"/></svg> GitHub Actions</span>
+        <span class="stack-chip"><svg class="i i-circleci" aria-hidden="true"><use href="#i-circleci"/></svg> CircleCI</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================================
+       EXPERIENCE
+  ===================================================== -->
+
+  <section id="experience">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="mini-label">
+            📈 Experience
+          </div>
+
+          <h2 class="section-title">
+            7+ years
+            <span>building backend systems.</span>
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="experience">
+
+
+        <div class="experience-row">
+
+          <div class="exp-meta">
+
+            <div class="exp-company">
+              <img class="exp-logo" src="data:image/png;base64,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" alt="Ninox Software logo" />
+              Ninox Software GmbH
+            </div>
+
+            <div class="exp-role">
+              Backend Engineer · Berlin, Germany
+            </div>
+
+            <div class="exp-date">
+              Sep 2022 — Aug 2025
+            </div>
+
+          </div>
+
+          <ul class="exp-points">
+
+            <li data-icon="⚙️">
+              Raised sales-org operational efficiency by <strong>60%</strong> by designing and shipping a sales-automation microservice in Node.js that eliminated all manual intervention from a workflow previously requiring 3 FTEs of daily effort.
+            </li>
+
+            <li data-icon="🤖">
+              Reduced ticket resolution from <strong>hours to minutes</strong> by architecting an LLM-powered RAG triage pipeline that detects Jira failures across microservices and auto-posts an LLM-generated diagnosis.
+            </li>
+
+            <li data-icon="🚦">
+              Reduced failed request alerts by <strong>20%</strong> by replacing round-robin routing with a capacity-aware CPU/memory based routing layer handling 1K requests/sec.
+            </li>
+
+            <li data-icon="⬆️">
+              Enabled <strong>zero-downtime client upgrades</strong> by building a version-management system that let clients upgrade software independently.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="experience-row">
+
+          <div class="exp-meta">
+
+            <div class="exp-company">
+              <img class="exp-logo" src="data:image/png;base64,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" alt="Nium logo" />
+              Nium
+            </div>
+
+            <div class="exp-role">
+              Software Engineer · Bengaluru, India
+            </div>
+
+            <div class="exp-date">
+              May 2021 — Aug 2022
+            </div>
+
+          </div>
+
+          <ul class="exp-points">
+
+            <li data-icon="🧩">
+              Decomposed a monolithic payments platform into independently deployable microservices serving <strong>40+ countries</strong>, improving fault isolation per domain and cutting release cycles from 3 weeks to 4 days.
+            </li>
+
+            <li data-icon="📨">
+              Reduced inter-service failures by <strong>50%</strong> by designing Node.js REST APIs and a RabbitMQ event-driven layer with shared schema contracts, eliminating recurring integration issues in production.
+            </li>
+
+            <li data-icon="⚡">
+              Slashed API latency by <strong>55%</strong> through targeted query optimisation, Redis caching on hot-path reads and index redesign, directly strengthening payment SLAs for 30+ enterprise clients.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="experience-row">
+
+          <div class="exp-meta">
+
+            <div class="exp-company">
+              <span class="exp-logo-fallback" aria-hidden="true">DB</span>
+              Driver Bandhu
+            </div>
+
+            <div class="exp-role">
+              Software Engineer · Bengaluru, India
+            </div>
+
+            <div class="exp-date">
+              Jul 2019 — Apr 2021
+            </div>
+
+          </div>
+
+          <ul class="exp-points">
+
+            <li data-icon="🚀">
+              Accelerated feature delivery by <strong>40%</strong> by engineering a fleet-management platform with clearly scoped Node.js service boundaries and API contracts, enabling parallel squad work from day one.
+            </li>
+
+            <li data-icon="👥">
+              Cut average incident response time by <strong>35%</strong> while leading a 3-person cross-functional team and coordinating with 4 co-founders to deliver a successful platform launch on schedule.
+            </li>
+
+            <li data-icon="💰">
+              Reduced infrastructure costs by <strong>30%</strong> by architecting a serverless backend (AWS Lambda &amp; SQS) that auto-scaled to 10× baseline load during the beta launch.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="experience-row">
+
+          <div class="exp-meta">
+
+            <div class="exp-company">
+              <img class="exp-logo" src="data:image/png;base64,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" alt="Ongraph Technologies logo" />
+              Ongraph Technologies
+            </div>
+
+            <div class="exp-role">
+              Software Engineer · Noida, India
+            </div>
+
+            <div class="exp-date">
+              Jun 2018 — Jun 2019
+            </div>
+
+          </div>
+
+          <ul class="exp-points">
+
+            <li data-icon="🔬">
+              Improved survey-platform API response times by <strong>35%</strong> by profiling and rewriting high-traffic endpoints in Node.js, reducing average query execution from 420ms to 270ms.
+            </li>
+
+            <li data-icon="📋">
+              <strong>Halved mean time to resolution</strong> on production incidents by introducing structured logging standards and a runbook library, cutting average debug time from 2.5 hours to under 1 hour.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ====================================================
+       SELECTED WORK
+  ===================================================== -->
+
+  <section id="work">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="mini-label">
+            🧩 Selected work
+          </div>
+
+          <h2 class="section-title">
+            Problems I've
+            <span>engineered through.</span>
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="work-grid">
+
+        <!-- LLM INCIDENT TRIAGE -->
+
+        <article
+          class="project"
+        >
+
+          <div class="project-top">
+
+            <div class="emoji-tile"><svg class="i i-search" aria-hidden="true"><use href="#i-search"/></svg></div>
+
+            <span class="project-type">
+              <svg class="i i-cpu" aria-hidden="true"><use href="#i-cpu"/></svg> AI Engineering
+            </span>
+
+          </div>
+
+          <h3>
+            LLM Incident Triage
+          </h3>
+
+          <p class="project-description">
+            Architected an LLM-powered RAG triage pipeline that detects Jira
+            failures across microservices and auto-posts an LLM-generated
+            diagnosis straight onto the ticket.
+          </p>
+
+          <div class="flow">
+
+              <span class="flow-node"><svg class="i i-jira" aria-hidden="true"><use href="#i-jira"/></svg> Jira failure</span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-search" aria-hidden="true"><use href="#i-search"/></svg> Retrieve context</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-cpu" aria-hidden="true"><use href="#i-cpu"/></svg> LLM diagnosis</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-check" aria-hidden="true"><use href="#i-check"/></svg> Auto-posted</span></span>
+
+          </div>
+
+
+          <div class="project-bottom">
+
+            <div class="project-impact">
+              <svg class="i i-bolt" aria-hidden="true"><use href="#i-bolt"/></svg> Hours → minutes
+
+              <small>
+                ticket resolution time
+              </small>
+            </div>
+
+
+            <div class="tags">
+
+              <span class="tag"><svg class="i i-claude" aria-hidden="true"><use href="#i-claude"/></svg> Claude</span>
+              <span class="tag"><svg class="i i-search" aria-hidden="true"><use href="#i-search"/></svg> RAG</span>
+              <span class="tag"><svg class="i i-jira" aria-hidden="true"><use href="#i-jira"/></svg> Jira</span>
+              <span class="tag"><svg class="i i-grid" aria-hidden="true"><use href="#i-grid"/></svg> Microservices</span>
+
+            </div>
+
+
+            <details>
+
+              <summary>
+                <svg class="i i-tool" aria-hidden="true"><use href="#i-tool"/></svg> Engineering decisions
+              </summary>
+
+              <div class="engineering-list">
+
+                <div>
+                  Failure detection spanning every microservice, not one service at a time
+                </div>
+
+                <div>
+                  Retrieval-grounded context assembled before the model generates
+                </div>
+
+                <div>
+                  Diagnosis posted back to the originating ticket automatically
+                </div>
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+
+        <!-- SALES AUTOMATION -->
+
+        <article
+          class="project"
+          id="sales-automation"
+        >
+
+          <div class="project-top">
+
+            <div class="emoji-tile"><svg class="i i-gear" aria-hidden="true"><use href="#i-gear"/></svg></div>
+
+            <span class="project-type">
+              <svg class="i i-graph" aria-hidden="true"><use href="#i-graph"/></svg> Distributed Systems
+            </span>
+
+          </div>
+
+          <h3>
+            Sales Automation Platform
+          </h3>
+
+          <p class="project-description">
+            Automated the sales-ops workflow end to end with a Node.js
+            microservice, removing every manual step from a process that
+            previously consumed 3 FTEs of daily effort.
+          </p>
+
+          <div class="flow">
+
+              <span class="flow-node"><svg class="i i-file" aria-hidden="true"><use href="#i-file"/></svg> Sales order</span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-queue" aria-hidden="true"><use href="#i-queue"/></svg> Queue</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-gear" aria-hidden="true"><use href="#i-gear"/></svg> Workflow worker</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-check" aria-hidden="true"><use href="#i-check"/></svg> Provisioned</span></span>
+
+          </div>
+
+
+
+          <div class="project-bottom">
+
+            <div class="project-impact">
+              <svg class="i i-gear" aria-hidden="true"><use href="#i-gear"/></svg> 60% efficiency gain
+
+              <small>
+                3 FTEs of daily manual work removed
+              </small>
+            </div>
+
+
+            <div class="tags">
+
+              <span class="tag"><svg class="i i-node" aria-hidden="true"><use href="#i-node"/></svg> Node.js</span>
+              <span class="tag"><svg class="i i-ts" aria-hidden="true"><use href="#i-ts"/></svg> TypeScript</span>
+              <span class="tag"><svg class="i i-rabbitmq" aria-hidden="true"><use href="#i-rabbitmq"/></svg> RabbitMQ</span>
+              <span class="tag"><svg class="i i-mongodb" aria-hidden="true"><use href="#i-mongodb"/></svg> MongoDB</span>
+              <span class="tag"><svg class="i i-redis" aria-hidden="true"><use href="#i-redis"/></svg> Redis</span>
+              <span class="tag"><svg class="i i-aws" aria-hidden="true"><use href="#i-aws"/></svg> AWS</span>
+
+            </div>
+
+
+            <details>
+
+              <summary>
+                <svg class="i i-tool" aria-hidden="true"><use href="#i-tool"/></svg> Engineering decisions
+              </summary>
+
+              <div class="engineering-list">
+
+                <div>
+                  Persistent workflow state to resume failed operations
+                </div>
+
+                <div>
+                  Idempotent actions to prevent duplicate side effects
+                </div>
+
+                <div>
+                  Async queue-based processing for long-running provisioning
+                </div>
+
+                <div>
+                  Retry handling with Slack and email failure alerts
+                </div>
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+
+        <!-- CAPACITY ROUTING -->
+
+        <article
+          class="project"
+        >
+
+          <div class="project-top">
+
+            <div class="emoji-tile"><svg class="i i-route" aria-hidden="true"><use href="#i-route"/></svg></div>
+
+            <span class="project-type">
+              <svg class="i i-trend" aria-hidden="true"><use href="#i-trend"/></svg> Scalability
+            </span>
+
+          </div>
+
+          <h3>
+            Capacity-Aware Routing
+          </h3>
+
+          <p class="project-description">
+            Replaced round-robin routing with capacity-aware routing
+            across distributed backend servers.
+          </p>
+
+          <div class="flow">
+
+              <span class="flow-node"><svg class="i i-request" aria-hidden="true"><use href="#i-request"/></svg> Request</span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-pulse" aria-hidden="true"><use href="#i-pulse"/></svg> Health signal</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-route" aria-hidden="true"><use href="#i-route"/></svg> Least-loaded</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-bolt" aria-hidden="true"><use href="#i-bolt"/></svg> Response</span></span>
+
+          </div>
+
+
+
+          <div class="project-bottom">
+
+            <div class="project-impact">
+              <svg class="i i-shield" aria-hidden="true"><use href="#i-shield"/></svg> ~20% fewer alerts
+
+              <small>
+                at 1K+ requests/sec
+              </small>
+            </div>
+
+
+            <div class="tags">
+
+              <span class="tag"><svg class="i i-node" aria-hidden="true"><use href="#i-node"/></svg> Node.js</span>
+              <span class="tag"><svg class="i i-redis" aria-hidden="true"><use href="#i-redis"/></svg> Redis</span>
+              <span class="tag"><svg class="i i-mongodb" aria-hidden="true"><use href="#i-mongodb"/></svg> MongoDB</span>
+
+            </div>
+
+
+            <details>
+
+              <summary>
+                <svg class="i i-tool" aria-hidden="true"><use href="#i-tool"/></svg> Engineering decisions
+              </summary>
+
+              <div class="engineering-list">
+
+                <div>
+                  Continuously measured server health
+                </div>
+
+                <div>
+                  Cached capacity state in Redis
+                </div>
+
+                <div>
+                  Routed traffic toward healthier servers
+                </div>
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+
+        <!-- PAYMENTS -->
+
+        <article
+          class="project"
+        >
+
+          <div class="project-top">
+
+            <div class="emoji-tile"><svg class="i i-card" aria-hidden="true"><use href="#i-card"/></svg></div>
+
+            <span class="project-type">
+              <svg class="i i-card" aria-hidden="true"><use href="#i-card"/></svg> Payments
+            </span>
+
+          </div>
+
+          <h3>
+            Payments Platform Modernization
+          </h3>
+
+          <p class="project-description">
+            Decomposed a monolithic payments platform serving 40+ countries
+            into independently deployable microservices, cutting release
+            cycles from 3 weeks to 4 days.
+          </p>
+
+          <div class="flow">
+
+              <span class="flow-node"><svg class="i i-monolith" aria-hidden="true"><use href="#i-monolith"/></svg> Monolith</span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-event" aria-hidden="true"><use href="#i-event"/></svg> Events</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-grid" aria-hidden="true"><use href="#i-grid"/></svg> Services</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-cache" aria-hidden="true"><use href="#i-cache"/></svg> Cache</span></span>
+
+          </div>
+
+
+
+          <div class="project-bottom">
+
+            <div class="project-impact">
+              <svg class="i i-bolt" aria-hidden="true"><use href="#i-bolt"/></svg> 55% lower latency
+
+              <small>
+                through database optimization and caching
+              </small>
+            </div>
+
+
+            <div class="tags">
+
+              <span class="tag"><svg class="i i-node" aria-hidden="true"><use href="#i-node"/></svg> Node.js</span>
+              <span class="tag"><svg class="i i-rabbitmq" aria-hidden="true"><use href="#i-rabbitmq"/></svg> RabbitMQ</span>
+              <span class="tag"><svg class="i i-redis" aria-hidden="true"><use href="#i-redis"/></svg> Redis</span>
+              <span class="tag"><svg class="i i-grid" aria-hidden="true"><use href="#i-grid"/></svg> Microservices</span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- SERVERLESS FLEET BACKEND -->
+
+        <article
+          class="project"
+        >
+
+          <div class="project-top">
+
+            <div class="emoji-tile"><svg class="i i-cloud" aria-hidden="true"><use href="#i-cloud"/></svg></div>
+
+            <span class="project-type">
+              <svg class="i i-cloud" aria-hidden="true"><use href="#i-cloud"/></svg> Serverless
+            </span>
+
+          </div>
+
+          <h3>
+            Serverless Fleet Backend
+          </h3>
+
+          <p class="project-description">
+            Architected the serverless backend behind a fleet-management
+            platform, sized to absorb the beta launch without standing
+            capacity idle.
+          </p>
+
+          <div class="flow">
+
+              <span class="flow-node"><svg class="i i-event" aria-hidden="true"><use href="#i-event"/></svg> Event trigger</span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-lambda" aria-hidden="true"><use href="#i-lambda"/></svg> Lambda</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-sqs" aria-hidden="true"><use href="#i-sqs"/></svg> SQS queue</span></span>
+
+              <span class="flow-step"><span class="flow-arrow">→</span><span class="flow-node"><svg class="i i-trend" aria-hidden="true"><use href="#i-trend"/></svg> 10× autoscale</span></span>
+
+          </div>
+
+
+          <div class="project-bottom">
+
+            <div class="project-impact">
+              <svg class="i i-trend" aria-hidden="true"><use href="#i-trend"/></svg> 30% lower infra cost
+
+              <small>
+                auto-scaled to 10× baseline load
+              </small>
+            </div>
+
+
+            <div class="tags">
+
+              <span class="tag"><svg class="i i-node" aria-hidden="true"><use href="#i-node"/></svg> Node.js</span>
+              <span class="tag"><svg class="i i-lambda" aria-hidden="true"><use href="#i-lambda"/></svg> AWS Lambda</span>
+              <span class="tag"><svg class="i i-sqs" aria-hidden="true"><use href="#i-sqs"/></svg> SQS</span>
+              <span class="tag"><svg class="i i-cloud" aria-hidden="true"><use href="#i-cloud"/></svg> Serverless</span>
+
+            </div>
+
+
+            <details>
+
+              <summary>
+                <svg class="i i-tool" aria-hidden="true"><use href="#i-tool"/></svg> Engineering decisions
+              </summary>
+
+              <div class="engineering-list">
+
+                <div>
+                  Clearly scoped service boundaries and API contracts so squads could work in parallel
+                </div>
+
+                <div>
+                  Queue-backed processing to decouple bursty ingest from workers
+                </div>
+
+                <div>
+                  Auto-scaling sized for 10× baseline rather than peak-provisioned capacity
+                </div>
+
+              </div>
+
+            </details>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ====================================================
+       GITHUB PROJECTS
+  ===================================================== -->
+
+  <section id="projects">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="mini-label">
+            <svg class="i i-github" aria-hidden="true"><use href="#i-github"/></svg> GitHub
+          </div>
+
+          <h2 class="section-title">
+            Things I build
+            <span>because I'm curious.</span>
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="github-grid">
+
+
+        <a
+          href="https://github.com/Parinita789/DesignCoach"
+          target="_blank"
+          class="github-card"
+        >
+
+          <div class="github-header">
+
+            <div class="github-icon">
+              <svg class="i i-claude" aria-hidden="true"><use href="#i-claude"/></svg>
+            </div>
+
+            <span class="github-arrow">
+              ↗
+            </span>
+
+          </div>
+
+
+          <h3>
+            DesignCoach
+          </h3>
+
+          <p>
+            AI-powered system-design interview evaluator and coach. Hallucination-resistant LLM evaluation built on forced tool-call schemas, evidence grounding and deterministic code-based scoring — regression-tested across seniority levels and rubrics.
+          </p>
+
+          <div class="github-stack">
+            <svg class="i i-ts" aria-hidden="true"><use href="#i-ts"/></svg> TypeScript · <svg class="i i-nestjs" aria-hidden="true"><use href="#i-nestjs"/></svg> NestJS · <svg class="i i-react" aria-hidden="true"><use href="#i-react"/></svg> React · <svg class="i i-claude" aria-hidden="true"><use href="#i-claude"/></svg> Claude API · <svg class="i i-postgres" aria-hidden="true"><use href="#i-postgres"/></svg> PostgreSQL
+          </div>
+
+        </a>
+
+
+        <a
+          href="https://github.com/Parinita789/CareerLens"
+          target="_blank"
+          class="github-card"
+        >
+
+          <div class="github-header">
+
+            <div class="github-icon">
+              <svg class="i i-ollama" aria-hidden="true"><use href="#i-ollama"/></svg>
+            </div>
+
+            <span class="github-arrow">
+              ↗
+            </span>
+
+          </div>
+
+
+          <h3>
+            CareerLens
+          </h3>
+
+          <p>
+            LLM-powered job intelligence agent that ingests 200+ listings a day from LinkedIn, Greenhouse, Lever and Indeed. Routes high-volume scoring to a local Ollama model and quality-sensitive tasks to Claude to keep inference costs down.
+          </p>
+
+          <div class="github-stack">
+            <svg class="i i-ts" aria-hidden="true"><use href="#i-ts"/></svg> TypeScript · <svg class="i i-nestjs" aria-hidden="true"><use href="#i-nestjs"/></svg> NestJS · <svg class="i i-react" aria-hidden="true"><use href="#i-react"/></svg> React · <svg class="i i-claude" aria-hidden="true"><use href="#i-claude"/></svg> Claude API · <svg class="i i-browser" aria-hidden="true"><use href="#i-browser"/></svg> Playwright · <svg class="i i-mongodb" aria-hidden="true"><use href="#i-mongodb"/></svg> MongoDB · <svg class="i i-ollama" aria-hidden="true"><use href="#i-ollama"/></svg> Ollama
+          </div>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+
+  <!-- ====================================================
+       TESTIMONIALS — ready to use.
+       Delete the two comment markers below once you've
+       replaced the placeholders with REAL quotes from
+       managers, teammates or clients.
+  ===================================================== -->
+
+  <!--
+  <section id="testimonials">
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="mini-label">💬 Kind words</div>
+          <h2 class="section-title">
+            What people say
+            <span>about working with me.</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="quote-grid">
+
+        <div class="quote-card">
+          <blockquote>
+            "Paste a real quote here — one specific sentence about a
+            problem you solved beats three generic ones."
+          </blockquote>
+          <div class="quote-author">
+            <div class="quote-avatar">🧑‍💼</div>
+            <div>
+              <div class="quote-name">Their Name</div>
+              <div class="quote-role">Their role · Company</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <blockquote>
+            "Second quote."
+          </blockquote>
+          <div class="quote-author">
+            <div class="quote-avatar">👩‍💻</div>
+            <div>
+              <div class="quote-name">Their Name</div>
+              <div class="quote-role">Their role · Company</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <blockquote>
+            "Third quote."
+          </blockquote>
+          <div class="quote-author">
+            <div class="quote-avatar">🧑‍🔧</div>
+            <div>
+              <div class="quote-name">Their Name</div>
+              <div class="quote-role">Their role · Company</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  -->
+
+  <!-- ====================================================
+       CTA
+  ===================================================== -->
+
+  <div class="container" id="contact">
+
+    <div class="cta">
+
+      <div class="cta-content">
+
+        <div class="mini-label">
+          💌 What's next
+        </div>
+
+        <h2>
+          Looking for systems worth solving. 🧠
+        </h2>
+
+        <p>
+          ✨ Currently exploring Senior Backend and AI Engineering opportunities.
+        </p>
+
+
+        <div class="cta-buttons">
+
+          <a
+            href="mailto:parinitamehta123@gmail.com"
+            class="button primary"
+          >
+            💬 Let's talk →
+          </a>
+
+          <a
+            href="./Parinita_Kumari_Resume.pdf"
+            target="_blank"
+            class="button secondary"
+          >
+            📄 View Resume
+          </a>
+
+        </div>
+
+        <div class="contact-row">
+
+          <a href="mailto:parinitamehta123@gmail.com">
+            <svg class="i i-mail" aria-hidden="true"><use href="#i-mail"/></svg> parinitamehta123@gmail.com
+          </a>
+
+          <a
+            href="https://linkedin.com/in/parinita789"
+            target="_blank"
+          >
+            <svg class="i i-linkedin" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn
+          </a>
+
+          <a
+            href="https://github.com/Parinita789"
+            target="_blank"
+          >
+            <svg class="i i-github" aria-hidden="true"><use href="#i-github"/></svg> GitHub
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================================
+       FOOTER
+  ===================================================== -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div>
+        © 2026 Parinita Kumari · Built with ☕ and curiosity
+      </div>
+
+      <div class="footer-links">
+
+        <a
+          href="https://github.com/Parinita789"
+          target="_blank"
+        >
+          <svg class="i i-github" aria-hidden="true"><use href="#i-github"/></svg> GitHub
+        </a>
+
+        <a
+          href="https://linkedin.com/in/parinita789"
+          target="_blank"
+        >
+          <svg class="i i-linkedin" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn
+        </a>
+
+        <a
+          href="mailto:parinitamehta123@gmail.com"
+        >
+          <svg class="i i-mail" aria-hidden="true"><use href="#i-mail"/></svg> Email
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ====================================================
+       SMALL INTERACTIONS
+  ===================================================== -->
+
+  <script>
+    /* soft cursor glow */
+
+    const glow = document.getElementById("cursorGlow");
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+
+      glow.style.opacity = "1";
+
+      document.addEventListener("mousemove", (event) => {
+
+        glow.style.left = event.clientX + "px";
+        glow.style.top = event.clientY + "px";
+
+      });
+
+    }
+
+
+    /* scroll progress bar */
+
+    const progressBar = document.getElementById("progressBar");
+
+    const updateProgress = () => {
+
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const ratio =
+        scrollable > 0 ? window.scrollY / scrollable : 0;
+
+      progressBar.style.width =
+        Math.min(100, Math.max(0, ratio * 100)) + "%";
+
+    };
+
+    updateProgress();
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+
+    /* scroll reveal — classes are added by JS so
+       content stays visible if JS never runs */
+
+    const reduceMotion =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+
+      const targets = document.querySelectorAll(
+        ".impact-box, .project, .github-card, .experience-row, .section-head, .quote-card, .cta"
+      );
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+
+          });
+
+        },
+        { rootMargin: "0px 0px -60px 0px", threshold: 0.08 }
+      );
+
+      targets.forEach((element, index) => {
+
+        element.classList.add("reveal");
+        element.style.transitionDelay = (index % 4) * 60 + "ms";
+
+        observer.observe(element);
+
+      });
+
+    }
+  </script>
+
+</body>
+</html>
