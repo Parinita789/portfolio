@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# enablement below needs pages:write; deploy-pages needs id-token:write
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # turns Pages on for the repo if it is not already configured,
+      # so no manual toggling in Settings is required
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      # uploads the repo root as-is; .git and .github are excluded by the action.
+      # this path bypasses Jekyll entirely, so no _underscore or plugin surprises
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
