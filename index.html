@@ -1984,6 +1984,12 @@
         padding: 25px;
       }
 
+      /* single column here, so the lone-card centring must not force 50% */
+      .project:last-child:nth-child(odd) {
+        width: auto;
+        margin: 0;
+      }
+
       .project h3 {
         margin-top: 20px;
       }
